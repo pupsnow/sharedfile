@@ -1,0 +1,17 @@
+##配置读取locale中的properties文件
+-source-path=locale\{locale}
+
+##国际化配置
+-locale en_US zh_CN
+
+##让source-path参数值可变
+-allow-source-path-overlap=true
+
+##发布时能看到编译后的as文件
+-keep-generated-actionscript
+
+##允许Flex程序本地访问
+-use-network=false
+
+##Flex4支持Halo主题
+-theme=${flexlib}/themes/Halo/halo.swc
