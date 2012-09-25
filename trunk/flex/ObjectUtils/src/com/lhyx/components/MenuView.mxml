@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  creationComplete="creationCompleteHandler(event)">
+	
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Tree;
+			import mx.events.FlexEvent;
+			
+			private var _treeMenu:Tree;
+			
+			public function get treeMenu():Tree
+			{
+				return _treeMenu;
+			}
+			
+			public function set treeMenu(value:Tree):void
+			{
+				_treeMenu = value;
+			}
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				if (this._treeMenu) 
+				{
+					this.addElement(this._treeMenu);
+				}
+			}
+		]]>
+	</fx:Script>
+</s:VGroup>
