@@ -21,6 +21,6 @@ package com.lhyx.utils.convert
 		 * @return Whether to generate success.
 		 * 
 		 */		
-		function generateAsFile(file:File,packageName:String = null,directory:String = File.desktopDirectory.url):Boolean;
+		function generateAsFile(file:File,packageName:String = null,directory:String = null):Boolean;
 	}
 }

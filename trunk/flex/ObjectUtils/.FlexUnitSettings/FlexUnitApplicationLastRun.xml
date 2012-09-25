@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="" >
+<testsuite  name="Default Test Suite" project="ObjectUtils">
+<testsuite name="com.lhyx.test:GenerateJavaPOJOTester" type="testcaseclass">
+<testcase name="testGenerateAsFile" classname="com.lhyx.test:GenerateJavaPOJOTester"/>
+</testsuite>
+</testsuite>
+<portNumber value="8765" />
+</testrun>
