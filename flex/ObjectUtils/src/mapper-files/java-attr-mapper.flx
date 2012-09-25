@@ -1,0 +1,37 @@
+# File format:
+# Java attribute type = Flex attribute type
+
+Date=Date
+Calendar=Date
+
+Double=Number
+double=Number
+Long=Number
+long=Number
+Float=Number
+float=Number
+BigDecimal=Number
+
+Integer=int
+Short=int
+short=int
+Byte=int
+
+Byte[]=ByteArray
+byte[]=ByteArray
+
+Boolean=Boolean
+boolean=Boolean
+
+List=ArrayCollection
+
+Map=Object
+Dictionary=Object
+
+Character=String
+char=String
+String=String
+BigInteger=String
+BigDecimal=String
+
+Document=XML

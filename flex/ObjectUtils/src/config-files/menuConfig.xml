@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<language name="Java">
+		<actionType name="POJO" value="java-attr-mapper.flx" />
+		<actionType name="Interface" />
+	</language>
+<!-- 	<language name=".Net"> -->
+<!-- 		<actionType name="POJO" /> -->
+<!-- 		<actionType name="Interface" /> -->
+<!-- 	</language> -->
+<!-- 	<language name="Flex"> -->
+<!-- 		<actionType name="POJO" /> -->
+<!-- 		<actionType name="Interface" /> -->
+<!-- 	</language> -->
+</root>

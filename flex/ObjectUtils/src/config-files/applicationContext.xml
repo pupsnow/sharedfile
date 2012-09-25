@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects xmlns="http://www.springactionscript.org/schema/objects"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springactionscript.org/schema/objects http://www.springactionscript.org/schema/objects/spring-actionscript-objects-2.0.xsd">
+
+	<!-- Views -->
+	<object id="MenuView" class="com.lhyx.components.MenuView">
+		<property name="percentHeight" value="100" />
+		<property name="percentWidth" value="25" />
+		<property name="treeMenu">
+			<value>
+				<object class="mx.controls.Tree">
+					<property name="percentWidth" value="100" />
+					<property name="percentHeight" value="100" />
+					<property name="showRoot" value="false" />
+					<property name="labelField" value="@name" />
+				</object>
+			</value>
+		</property>
+	</object>
+
+
+	<!-- Presenter Managers -->
+	<object id="MainPM" class="com.lhyx.presentermanager.MainPM">
+		<property name="layout">
+			<value>
+				<object class="spark.layouts.HorizontalLayout">
+					<property name="verticalAlign" value="middle" />
+					<property name="horizontalAlign" value="left" />
+					<property name="paddingLeft" value="5" />
+					<property name="paddingTop" value="10" />
+					<property name="paddingRight" value="5" />
+					<property name="paddingBottom" value="10" />
+				</object>
+			</value>
+		</property>
+		<property name="showStatusBar" value="false" />
+		<property name="menuViewPM" ref="MenuViewPM" />
+	</object>
+
+	<object id="MenuViewPM" class="com.lhyx.presentermanager.MenuViewPM">
+		<property name="menuView" ref="MenuView" />
+		<method-invocation name="initViewHandler" />
+	</object>
+
+</objects>
