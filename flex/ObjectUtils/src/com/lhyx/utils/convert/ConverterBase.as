@@ -28,7 +28,7 @@ package com.lhyx.utils.convert
 			return result;
 		}
 		
-		public function generateAsFile(file:File, packageName:String = null, directory:String = File.desktopDirectory.url):Boolean
+		public function generateAsFile(file:File, packageName:String = null, directory:String = null):Boolean
 		{
 			throw new IllegalOperationError("Abstract method can not be called directly.");
 		}
