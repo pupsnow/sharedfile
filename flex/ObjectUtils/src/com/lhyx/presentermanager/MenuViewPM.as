@@ -37,7 +37,7 @@ package com.lhyx.presentermanager
 			try
 			{
 				xmlFile = File.applicationDirectory.resolvePath(FilePathEnum.TREE_MENU_FILE_PATH);
-				xmlString = FileUtils.readFile(xmlFile);
+				xmlString = FileUtils.readFileByMultiByte(xmlFile);
 				this._menuView.treeMenu.dataProvider = xmlString;
 			} 
 			catch(error:Error) 

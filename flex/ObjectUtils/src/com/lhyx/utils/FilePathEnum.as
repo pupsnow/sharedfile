@@ -14,6 +14,11 @@ package com.lhyx.utils
 		 */		
 		public static const TREE_MENU_FILE_PATH:String = "config-files" + File.separator + "menuConfig.xml";
 		
+		/**
+		 * This const value is java attribute mapping file path.
+		 */		
+		public static const JAVA_ATTR_MAPPER_PATH:String = "mapper-files" + File.separator + "java-attr-mapper.flx";
+		
 		public function FilePathEnum()
 		{
 		}

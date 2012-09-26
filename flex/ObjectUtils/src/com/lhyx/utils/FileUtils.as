@@ -1,5 +1,7 @@
 package com.lhyx.utils
 {
+	import flash.errors.EOFError;
+	import flash.errors.IOError;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
@@ -12,7 +14,7 @@ package com.lhyx.utils
 		{
 		}
 		
-		public static function readFile(file:File):String
+		public static function readFileByMultiByte(file:File):String
 		{
 			var fileStream:FileStream = null;
 			var resultStr:String = null;
@@ -29,7 +31,15 @@ package com.lhyx.utils
 				{
 					throw new IllegalArgumentError("The argument 'file' can't is null.");
 				}
-			} 
+			}
+			catch(ioError:IOError)
+			{
+				throw ioError;
+			}
+			catch(eofError:EOFError)
+			{
+				throw eofError;
+			}
 			catch(error:Error) 
 			{
 				throw error;
@@ -44,7 +54,7 @@ package com.lhyx.utils
 			return resultStr;
 		}
 		
-		public static function writeFile(file:File,content:String):Boolean
+		public static function writeFileByMultiByte(file:File,content:String):Boolean
 		{
 			var fileStream:FileStream = null;
 			var flg:Boolean = false;
