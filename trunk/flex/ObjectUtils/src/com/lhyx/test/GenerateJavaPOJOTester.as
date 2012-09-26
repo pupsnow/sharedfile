@@ -1,5 +1,6 @@
 package com.lhyx.test
 {
+	import com.lhyx.utils.FilePathEnum;
 	import com.lhyx.utils.convert.IConverter;
 	import com.lhyx.utils.convert.java.GenerateJavaPOJO;
 	
@@ -9,7 +10,7 @@ package com.lhyx.test
 	
 	public class GenerateJavaPOJOTester
 	{
-		private const TEST_FILE_PATH:String = "Tick.java";
+		private const TEST_FILE_PATH:String = "Tick(No Comments).java";
 		
 		private var _converter:IConverter;
 		private var _testFile:File;
@@ -19,7 +20,7 @@ package com.lhyx.test
 		{
 			try
 			{
-				this._converter = new GenerateJavaPOJO();
+				this._converter = new GenerateJavaPOJO(FilePathEnum.JAVA_ATTR_MAPPER_PATH);
 				this._testFile = File.desktopDirectory.resolvePath(this.TEST_FILE_PATH);
 			} 
 			catch(error:Error) 
