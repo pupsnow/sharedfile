@@ -2,7 +2,7 @@
 <root>
 	<language name="Java">
 		<actionType name="POJO" value="java-attr-mapper.flx" />
-		<actionType name="Interface" />
+<!-- 		<actionType name="Interface" /> -->
 	</language>
 <!-- 	<language name=".Net"> -->
 <!-- 		<actionType name="POJO" /> -->
