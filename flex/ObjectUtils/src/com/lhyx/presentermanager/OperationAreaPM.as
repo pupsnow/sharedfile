@@ -47,6 +47,7 @@ package com.lhyx.presentermanager
 				if (this._operationArea.logTextArea) 
 				{
 					this._operationArea.addElement(this._operationArea.logTextArea);
+					this._operationArea.logTextArea.text += "启动应用程序！\n";
 				}
 			} 
 			catch(error:Error) 
