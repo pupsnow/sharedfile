@@ -20,6 +20,7 @@ package com.lhyx.presentermanager
 		private var _showStatusBar:Boolean = true;
 		
 		private var _menuViewPM:MenuViewPM;
+		private var _operationAreaPM:OperationAreaPM;
 		
 		public function MainPM()
 		{
@@ -45,6 +46,11 @@ package com.lhyx.presentermanager
 			_menuViewPM = value;
 		}
 		
+		public function set operationAreaPM(value:OperationAreaPM):void
+		{
+			_operationAreaPM = value;
+		}
+		
 		/**
 		 * Initialization application.
 		 * 
@@ -63,6 +69,11 @@ package com.lhyx.presentermanager
 				if (this._menuViewPM && this._menuViewPM.menuView) 
 				{
 					this.main.addElement(_menuViewPM.menuView);
+				}
+				
+				if (this._operationAreaPM && this._operationAreaPM.operationArea) 
+				{
+					this.main.addElement(this._operationAreaPM.operationArea);
 				}
 			} 
 			catch(error:Error) 

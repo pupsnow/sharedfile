@@ -1,6 +1,9 @@
 package com.lhyx.presentermanager
 {
 	import com.lhyx.components.OperationArea;
+	
+	import mx.controls.Alert;
+	import mx.events.FlexEvent;
 
 	public class OperationAreaPM
 	{
@@ -24,6 +27,32 @@ package com.lhyx.presentermanager
 		public function set fileBrowserPM(value:FileBrowserPM):void
 		{
 			_fileBrowserPM = value;
+			this._operationArea.addEventListener(FlexEvent.CREATION_COMPLETE,this.creationCompleteHandler);
+		}
+		
+		private function creationCompleteHandler(event:FlexEvent):void
+		{
+			try
+			{
+				if (this._fileBrowserPM && this._fileBrowserPM.fileBrowser) 
+				{
+					this._operationArea.addElement(this._fileBrowserPM.fileBrowser);
+				}
+				
+				if (this._operationArea.logLabel) 
+				{
+					this._operationArea.addElement(this._operationArea.logLabel);
+				}
+				
+				if (this._operationArea.logTextArea) 
+				{
+					this._operationArea.addElement(this._operationArea.logTextArea);
+				}
+			} 
+			catch(error:Error) 
+			{
+				Alert.show(error.toString());
+			}
 		}
 	}
 }

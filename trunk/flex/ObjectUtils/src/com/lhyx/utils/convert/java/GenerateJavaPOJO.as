@@ -31,6 +31,7 @@ package com.lhyx.utils.convert.java
 			var className:String = null;
 			var attributes:Array = null;
 			var attrTempStr:String = null;
+			var packageNameStr:String = null;
 			
 			try
 			{
@@ -41,9 +42,11 @@ package com.lhyx.utils.convert.java
 					if (fileString) 
 					{
 						// Get package name.
+						packageNameStr = StringUtils.trim(StringUtils.substringBetween(fileString,"package",";"));
+						
 						if (!packageName) 
 						{
-							packageName = StringUtils.trim(StringUtils.substringBetween(fileString,"package",";"));
+							packageName = packageNameStr;
 							trace("Package name: " + packageName);
 						}
 						
@@ -97,7 +100,7 @@ package com.lhyx.utils.convert.java
 							asClassStr.append("package " + packageName + "\n{\n");
 							
 							// Write RemoteClass metadata
-							asClassStr.append(super.repeat(" ",4) + "[RemoteClass(alias=\"" + packageName + "." + className + "\")]\n");
+							asClassStr.append(super.repeat(" ",4) + "[RemoteClass(alias=\"" + packageNameStr + "." + className + "\")]\n");
 							
 							// Write Bindable metadata.
 							asClassStr.append(super.repeat(" ",4) + "[Bindable]\n");

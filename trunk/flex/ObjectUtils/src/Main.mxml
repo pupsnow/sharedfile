@@ -4,6 +4,8 @@
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
 					   initialize="initializeHandler(event)">
 	
+	<fx:Style source="assets/css/global.css"/>
+	
 	<fx:Script>
 		<![CDATA[
 			import com.lhyx.presentermanager.MainPM;

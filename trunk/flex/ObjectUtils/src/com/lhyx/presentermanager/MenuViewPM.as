@@ -8,6 +8,7 @@ package com.lhyx.presentermanager
 	
 	import mx.controls.Alert;
 	import mx.controls.Tree;
+	import mx.events.FlexEvent;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 
@@ -27,15 +28,21 @@ package com.lhyx.presentermanager
 		public function set menuView(value:MenuView):void
 		{
 			_menuView = value;
+			this._menuView.addEventListener(FlexEvent.CREATION_COMPLETE,this.creationCompleteHandler);
 		}
 		
-		public function initViewHandler():void
+		private function creationCompleteHandler(event:FlexEvent):void
 		{
 			var xmlFile:File = null;
 			var xmlString:String = null;
 			
 			try
 			{
+				if (this._menuView.treeMenu) 
+				{
+					this._menuView.addElement(this._menuView.treeMenu);
+				}
+				
 				xmlFile = File.applicationDirectory.resolvePath(FilePathEnum.TREE_MENU_FILE_PATH);
 				xmlString = FileUtils.readFileByMultiByte(xmlFile);
 				this._menuView.treeMenu.dataProvider = xmlString;

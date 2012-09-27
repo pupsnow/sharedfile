@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx">
 	
@@ -7,4 +7,178 @@
 		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
 	</fx:Declarations>
 	
-</s:VGroup>
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			import spark.components.Button;
+			import spark.components.HGroup;
+			import spark.components.Label;
+			import spark.components.TextInput;
+			import spark.layouts.supportClasses.LayoutBase;
+			
+			
+			private var _inputLabel:Label;
+			private var _inputTextInput:TextInput;
+			private var _inputBrowserButton:Button;
+			
+			private var _outputLabel:Label;
+			private var _outputTextInput:TextInput;
+			private var _outputBrowserButton:Button;
+			
+			private var _clearButton:Button;
+			private var _generateButton:Button;
+			
+			private var _inputGroup:HGroup;
+			private var _outputGroup:HGroup;
+			private var _otherGroup:HGroup;
+			
+			private var _inputGroupLayout:LayoutBase;
+			private var _outputGroupLayout:LayoutBase;
+			private var _otherGroupLayout:LayoutBase;
+			
+			public function get inputLabel():Label
+			{
+				return _inputLabel;
+			}
+
+			public function set inputLabel(value:Label):void
+			{
+				_inputLabel = value;
+			}
+
+			public function get inputTextInput():TextInput
+			{
+				return _inputTextInput;
+			}
+
+			public function set inputTextInput(value:TextInput):void
+			{
+				_inputTextInput = value;
+			}
+
+			public function get inputBrowserButton():Button
+			{
+				return _inputBrowserButton;
+			}
+
+			public function set inputBrowserButton(value:Button):void
+			{
+				_inputBrowserButton = value;
+			}
+
+			public function get outputLabel():Label
+			{
+				return _outputLabel;
+			}
+
+			public function set outputLabel(value:Label):void
+			{
+				_outputLabel = value;
+			}
+
+			public function get outputTextInput():TextInput
+			{
+				return _outputTextInput;
+			}
+
+			public function set outputTextInput(value:TextInput):void
+			{
+				_outputTextInput = value;
+			}
+
+			public function get outputBrowserButton():Button
+			{
+				return _outputBrowserButton;
+			}
+
+			public function set outputBrowserButton(value:Button):void
+			{
+				_outputBrowserButton = value;
+			}
+
+			public function get clearButton():Button
+			{
+				return _clearButton;
+			}
+
+			public function set clearButton(value:Button):void
+			{
+				_clearButton = value;
+			}
+
+			public function get generateButton():Button
+			{
+				return _generateButton;
+			}
+
+			public function set generateButton(value:Button):void
+			{
+				_generateButton = value;
+			}
+
+			public function get inputGroup():HGroup
+			{
+				return _inputGroup;
+			}
+
+			public function set inputGroup(value:HGroup):void
+			{
+				_inputGroup = value;
+			}
+
+			public function get outputGroup():HGroup
+			{
+				return _outputGroup;
+			}
+
+			public function set outputGroup(value:HGroup):void
+			{
+				_outputGroup = value;
+			}
+
+			public function get otherGroup():HGroup
+			{
+				return _otherGroup;
+			}
+
+			public function set otherGroup(value:HGroup):void
+			{
+				_otherGroup = value;
+			}
+
+			public function get inputGroupLayout():LayoutBase
+			{
+				return _inputGroupLayout;
+			}
+
+			public function set inputGroupLayout(value:LayoutBase):void
+			{
+				_inputGroupLayout = value;
+			}
+
+			public function get outputGroupLayout():LayoutBase
+			{
+				return _outputGroupLayout;
+			}
+
+			public function set outputGroupLayout(value:LayoutBase):void
+			{
+				_outputGroupLayout = value;
+			}
+
+			public function get otherGroupLayout():LayoutBase
+			{
+				return _otherGroupLayout;
+			}
+
+			public function set otherGroupLayout(value:LayoutBase):void
+			{
+				_otherGroupLayout = value;
+			}
+
+		]]>
+	</fx:Script>
+	
+</s:Group>
