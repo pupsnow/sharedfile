@@ -6,6 +6,10 @@
 	
 	<fx:Style source="assets/css/global.css"/>
 	
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	
 	<fx:Script>
 		<![CDATA[
 			import com.lhyx.presentermanager.MainPM;
@@ -17,31 +21,34 @@
 			
 			protected function initializeHandler(event:FlexEvent):void
 			{
-				ApplicationFacade.getInstance().initializeIocContainer(File.applicationDirectory.resolvePath(FilePathEnum.APP_CONTEXT_FILE_PATH).url,function():void
+				try
 				{
-					var mainPM:MainPM = null;
-					
-					try
+					ApplicationFacade.getInstance().initializeIocContainer(File.applicationDirectory.resolvePath(FilePathEnum.APP_CONTEXT_FILE_PATH).url,function():void
 					{
-						mainPM = ApplicationFacade.getInstance().applicationContext.getObject(MainPM.NAME) as MainPM;
+						var mainPM:MainPM = null;
 						
-						if (mainPM) 
+						try
 						{
-							mainPM.initAppHandler();
+							mainPM = ApplicationFacade.getInstance().applicationContext.getObject(MainPM.NAME) as MainPM;
+							
+							if (mainPM) 
+							{
+								mainPM.initAppHandler();
+							}
+						} 
+						catch(error:Error) 
+						{
+							Alert.show(error.toString());
 						}
-					} 
-					catch(error:Error) 
-					{
-						Alert.show(error.toString());
-					}
-				});
+					});
+				} 
+				catch(error:Error) 
+				{
+					Alert.show(error.toString());
+				}
 			}
 			
 		]]>
 	</fx:Script>
-	
-	<fx:Declarations>
-		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
-	</fx:Declarations>
 	
 </s:WindowedApplication>
