@@ -2,10 +2,14 @@ package com.lhyx.presentermanager
 {
 	import com.lhyx.components.OperationArea;
 	
+	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.filesystem.File;
 	
 	import mx.controls.Alert;
 	import mx.events.FlexEvent;
+	
+	import org.springextensions.actionscript.core.event.EventBus;
 	
 	import spark.components.TextArea;
 
@@ -51,6 +55,7 @@ package com.lhyx.presentermanager
 				if (this._operationArea.logTextArea) 
 				{
 					this._operationArea.addElement(this._operationArea.logTextArea);
+					this._operationArea.logTextArea.text += "启动应用程序！\n";
 				}
 				this.initViewEvent();
 			} 
@@ -62,14 +67,57 @@ package com.lhyx.presentermanager
 		
 		private function initViewEvent():void
 		{
-			this._fileBrowserPM.fileBrowser.clearButton.addEventListener(MouseEvent.CLICK,function(clearEvent:MouseEvent):void
+			try
 			{
-				_fileBrowserPM.fileBrowser.inputTextInput.text = "";
-				_fileBrowserPM.fileBrowser.outputTextInput.text = "";
-				_operationArea.logTextArea.text += "清除文件输入、输出框内容！\n";
-				_operationArea.logTextArea.validateNow();
-				_operationArea.logTextArea.scroller.verticalScrollBar.value = _operationArea.logTextArea.scroller.verticalScrollBar.maximum;
-			});
+				// Listener clear button mouse click event, ouput log text.
+				this._fileBrowserPM.fileBrowser.clearButton.addEventListener(MouseEvent.CLICK,function(clearEvent:MouseEvent):void
+				{
+					_operationArea.logTextArea.text += "清除文件输入、输出框内容！\n";
+					// Set scroll to bottom.
+					_operationArea.logTextArea.validateNow();
+					_operationArea.logTextArea.scroller.verticalScrollBar.value = _operationArea.logTextArea.scroller.verticalScrollBar.maximum;
+				});
+				
+				EventBus.addEventListener(FileBrowserPM.INPUT_BROWSER_FILE_EVENT,function(inputChangeEvent:Event):void
+				{
+					EventBus.removeEventListener(FileBrowserPM.INPUT_BROWSER_FILE_EVENT,arguments.callmee);
+					
+					_fileBrowserPM.inputBrowserFile.addEventListener(Event.SELECT,function(inputSelectEvent:Event):void
+					{
+						if (inputSelectEvent.target is File) 
+						{
+							_operationArea.logTextArea.text += "您选择了输入文件：" + (inputSelectEvent.target as File).url + "\n";
+						}
+					});
+					
+					_fileBrowserPM.inputBrowserFile.addEventListener(Event.CANCEL,function(inputCancelEvent:Event):void
+					{
+						_operationArea.logTextArea.text += "取消选择输入文件！\n"
+					});
+				});
+				
+				EventBus.addEventListener(FileBrowserPM.OUTPUT_BROWSER_FILE_EVENT,function(outputChangeEvent:Event):void
+				{
+					EventBus.removeEventListener(FileBrowserPM.OUTPUT_BROWSER_FILE_EVENT,arguments.callmee);
+					
+					_fileBrowserPM.outputBrowserFile.addEventListener(Event.SELECT,function(outputSelectEvent:Event):void
+					{
+						if (outputSelectEvent.target is File) 
+						{
+							_operationArea.logTextArea.text += "您选择了输出目录：" + (outputSelectEvent.target as File).url + "\n";
+						}
+					});
+					
+					_fileBrowserPM.outputBrowserFile.addEventListener(Event.CANCEL,function(outputCancelEvent:Event):void
+					{
+						_operationArea.logTextArea.text += "取消选择输出目录！\n"
+					});
+				});
+			} 
+			catch(error:Error) 
+			{
+				throw error;
+			}
 		}
 	}
 }
