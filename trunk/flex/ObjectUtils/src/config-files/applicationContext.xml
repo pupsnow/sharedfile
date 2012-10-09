@@ -179,6 +179,13 @@
 	
 	<object id="FileBrowserPM" class="com.lhyx.presentermanager.FileBrowserPM">
 		<property name="fileBrowser" ref="FileBrowser" />
+<!-- 		<property name="converter"> -->
+<!-- 			<value> -->
+<!-- 				<object class="com.lhyx.utils.convert.java.GenerateJavaPOJO"> -->
+<!-- 					<constructor-arg value="" /> -->
+<!-- 				</object> -->
+<!-- 			</value> -->
+<!-- 		</property> -->
 	</object>
 	
 	<object id="OperationAreaPM" class="com.lhyx.presentermanager.OperationAreaPM">

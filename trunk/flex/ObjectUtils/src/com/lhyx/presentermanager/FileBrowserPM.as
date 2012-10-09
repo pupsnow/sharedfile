@@ -1,6 +1,7 @@
 package com.lhyx.presentermanager
 {
 	import com.lhyx.components.FileBrowser;
+	import com.lhyx.utils.convert.IConverter;
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -28,6 +29,8 @@ package com.lhyx.presentermanager
 		private var _fileBrowser:FileBrowser;
 		private var _inputBrowserFile:File;
 		private var _outputBrowserFile:File;
+		
+		private var _converter:IConverter;
 
 		public function FileBrowserPM()
 		{
@@ -54,6 +57,11 @@ package com.lhyx.presentermanager
 		public function get outputBrowserFile():File
 		{
 			return _outputBrowserFile;
+		}
+		
+		public function set converter(value:IConverter):void
+		{
+			_converter = value;
 		}
 		
 		private function creationCompleteHandler(event:FlexEvent):void
@@ -204,6 +212,19 @@ package com.lhyx.presentermanager
 								}
 							});
 						}
+					} 
+					catch(error:Error) 
+					{
+						Alert.show(error.toString());
+					}
+				});
+				
+				// Listener generate button mouse click event.
+				this._fileBrowser.generateButton.addEventListener(MouseEvent.CLICK,function(generateButtonEvent:MouseEvent):void
+				{
+					try
+					{
+						
 					} 
 					catch(error:Error) 
 					{
