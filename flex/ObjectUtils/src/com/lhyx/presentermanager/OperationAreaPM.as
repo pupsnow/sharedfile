@@ -69,13 +69,17 @@ package com.lhyx.presentermanager
 		{
 			try
 			{
+				this._operationArea.logTextArea.addEventListener("textChanged",function(contentChangeEvent:Event):void
+				{
+					// Set scroll to bottom.
+					_operationArea.logTextArea.validateNow();
+					_operationArea.logTextArea.scroller.verticalScrollBar.value = _operationArea.logTextArea.scroller.verticalScrollBar.maximum;
+				});
+				
 				// Listener clear button mouse click event, ouput log text.
 				this._fileBrowserPM.fileBrowser.clearButton.addEventListener(MouseEvent.CLICK,function(clearEvent:MouseEvent):void
 				{
 					_operationArea.logTextArea.text += "清除文件输入、输出框内容！\n";
-					// Set scroll to bottom.
-					_operationArea.logTextArea.validateNow();
-					_operationArea.logTextArea.scroller.verticalScrollBar.value = _operationArea.logTextArea.scroller.verticalScrollBar.maximum;
 				});
 				
 				EventBus.addEventListener(FileBrowserPM.INPUT_BROWSER_FILE_EVENT,function(inputChangeEvent:Event):void
