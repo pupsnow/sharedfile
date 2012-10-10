@@ -88,7 +88,7 @@ package com.lhyx.utils.convert.java
 						}
 						else
 						{
-							directory += ".as";
+							directory += File.separator + className + ".as";
 						}
 						
 						if (className && packageName && attributes) 

@@ -1,6 +1,8 @@
 package com.lhyx.presentermanager
 {
 	import com.lhyx.components.FileBrowser;
+	import com.lhyx.event.EventBase;
+	import com.lhyx.utils.convert.ConverterFactory;
 	import com.lhyx.utils.convert.IConverter;
 	
 	import flash.events.Event;
@@ -8,8 +10,10 @@ package com.lhyx.presentermanager
 	import flash.filesystem.File;
 	
 	import mx.controls.Alert;
+	import mx.core.UIComponent;
 	import mx.events.FlexEvent;
 	
+	import org.as3commons.lang.IllegalArgumentError;
 	import org.springextensions.actionscript.core.event.EventBus;
 	
 	import spark.components.Group;
@@ -25,6 +29,22 @@ package com.lhyx.presentermanager
 		 * This const value is 'outputBrowserFileChangeEvent'.
 		 */		
 		public static const OUTPUT_BROWSER_FILE_EVENT:String = "outputBrowserFileChangeEvent";
+		
+		/**
+		 * This const value is 'startGenerateFileEvent'.
+		 */		
+		public static const START_GENERATE_FILE_EVENT:String = "startGenerateFileEvent";
+		
+		/**
+		 * This const value is 'endGenerateFileEvent'.
+		 */		
+		public static const END_GENERATE_FILE_EVENT:String = "endGenerateFileEvent";
+		
+		/**
+		 * This const value is 'errorGenerateFileEvent'.
+		 */		
+		public static const ERROR_GENERATE_FILE_EVENT:String = "errorGenerateFileEvent";
+		
 		
 		private var _fileBrowser:FileBrowser;
 		private var _inputBrowserFile:File;
@@ -57,11 +77,6 @@ package com.lhyx.presentermanager
 		public function get outputBrowserFile():File
 		{
 			return _outputBrowserFile;
-		}
-		
-		public function set converter(value:IConverter):void
-		{
-			_converter = value;
 		}
 		
 		private function creationCompleteHandler(event:FlexEvent):void
@@ -222,19 +237,72 @@ package com.lhyx.presentermanager
 				// Listener generate button mouse click event.
 				this._fileBrowser.generateButton.addEventListener(MouseEvent.CLICK,function(generateButtonEvent:MouseEvent):void
 				{
+					var generateResult:Boolean = false;
+					
 					try
 					{
+						_converter = ConverterFactory.produce(ConverterFactory.PRODUCT_TYPE_JAVA_POJO);
 						
+						if (_converter) 
+						{
+							EventBus.dispatch(START_GENERATE_FILE_EVENT);
+							generateResult = _converter.generateAsFile(inputBrowserFile,null,outputBrowserFile.url);
+							
+							if (generateResult) 
+							{
+								EventBus.dispatch(END_GENERATE_FILE_EVENT);
+							}
+							else
+							{
+								EventBus.dispatchEvent(new EventBase(ERROR_GENERATE_FILE_EVENT,"Unknow error!"));
+							}
+						}
 					} 
 					catch(error:Error) 
 					{
-						Alert.show(error.toString());
+						EventBus.dispatchEvent(new EventBase(ERROR_GENERATE_FILE_EVENT,error.toString()));
+					}
+				});
+				
+				this._fileBrowser.inputTextInput.addEventListener("textChanged",function(inputTextChangeEvent:Event):void
+				{
+					if (_fileBrowser.inputTextInput.text && _fileBrowser.outputTextInput.text) 
+					{
+						enabledComponent(_fileBrowser.generateButton,true);
+					}
+					else
+					{
+						enabledComponent(_fileBrowser.generateButton);
+					}
+				});
+				
+				this._fileBrowser.outputTextInput.addEventListener("textChanged",function(outputTextChangeEvent:Event):void
+				{
+					if (_fileBrowser.inputTextInput.text && _fileBrowser.outputTextInput.text) 
+					{
+						enabledComponent(_fileBrowser.generateButton,true);
+					}
+					else
+					{
+						enabledComponent(_fileBrowser.generateButton);
 					}
 				});
 			} 
 			catch(error:Error) 
 			{
 				throw error;
+			}
+		}
+		
+		private function enabledComponent(component:UIComponent,flg:Boolean = false):void
+		{
+			if (component) 
+			{
+				component.enabled = flg;
+			}
+			else
+			{
+				throw new IllegalArgumentError("The argument 'component' can't is null.");
 			}
 		}
 	}

@@ -82,6 +82,7 @@
 			<value>
 				<object class="spark.components.Button">
 					<property name="label" value="生成文件" />
+					<property name="enabled" value="false" />
 				</object>
 			</value>
 		</property>
