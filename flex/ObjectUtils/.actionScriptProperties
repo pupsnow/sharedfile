@@ -34,7 +34,7 @@
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
     <buildTarget buildTargetName="default">
-      <airSettings airCertificatePath="C:/Users/AndriyHuang/Desktop/flex-air.p12" airTimestamp="true" anePathSet="true" version="1">
+      <airSettings airCertificatePath="E:/Users/Huang Yaxiang/Desktop/Project/证书/digitnexus_dev.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes/>
         <anePaths/>
       </airSettings>

@@ -66,10 +66,10 @@ package com.lhyx.presentermanager
 					this.main.layout = this._layout;
 				}
 				
-				if (this._menuViewPM && this._menuViewPM.menuView) 
+				/*if (this._menuViewPM && this._menuViewPM.menuView) 
 				{
 					this.main.addElement(_menuViewPM.menuView);
-				}
+				}*/
 				
 				if (this._operationAreaPM && this._operationAreaPM.operationArea) 
 				{

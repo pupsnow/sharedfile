@@ -1,6 +1,7 @@
 package com.lhyx.presentermanager
 {
 	import com.lhyx.components.OperationArea;
+	import com.lhyx.event.EventBase;
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -116,6 +117,27 @@ package com.lhyx.presentermanager
 					{
 						_operationArea.logTextArea.text += "取消选择输出目录！\n"
 					});
+				});
+				
+				EventBus.addEventListener(FileBrowserPM.START_GENERATE_FILE_EVENT,function(startTransEvent:Event):void
+				{
+					EventBus.removeEventListener(FileBrowserPM.START_GENERATE_FILE_EVENT,arguments.callmee);
+					
+					_operationArea.logTextArea.text += "开始转换文件！\n请稍等......\n";
+				});
+				
+				EventBus.addEventListener(FileBrowserPM.END_GENERATE_FILE_EVENT,function(endTransEvent:Event):void
+				{
+					EventBus.removeEventListener(FileBrowserPM.END_GENERATE_FILE_EVENT,arguments.callmee);
+					
+					_operationArea.logTextArea.text += "文件转换完成！\n";
+				});
+				
+				EventBus.addEventListener(FileBrowserPM.ERROR_GENERATE_FILE_EVENT,function(errorTransEvent:EventBase):void
+				{
+					EventBus.removeEventListener(FileBrowserPM.ERROR_GENERATE_FILE_EVENT,arguments.callmee);
+					
+					_operationArea.logTextArea.text += "文件转换出错：\n" + errorTransEvent.eventMessage + "\n";
 				});
 			} 
 			catch(error:Error) 
