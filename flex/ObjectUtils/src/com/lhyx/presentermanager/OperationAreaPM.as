@@ -2,20 +2,34 @@ package com.lhyx.presentermanager
 {
 	import com.lhyx.components.OperationArea;
 	import com.lhyx.event.EventBase;
+	import com.spring.facade.ApplicationFacade;
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.filesystem.File;
 	
+	import mx.containers.Canvas;
 	import mx.controls.Alert;
 	import mx.events.FlexEvent;
 	
 	import org.springextensions.actionscript.core.event.EventBus;
 	
+	import spark.components.Group;
 	import spark.components.TextArea;
 
 	public class OperationAreaPM
 	{
+		/**
+		 * This const value is 'DefaultView'.
+		 */		
+		public static const DEFAULT_VIEW:String = "DefaultView";
+		
+		/**
+		 * This const value is 'OperationView'.
+		 */		
+		public static const OPERATION_VIEW:String = "OperationView";
+		
+		
 		private var _operationArea:OperationArea;
 		private var _fileBrowserPM:FileBrowserPM;
 		
@@ -41,23 +55,36 @@ package com.lhyx.presentermanager
 		
 		private function creationCompleteHandler(event:FlexEvent):void
 		{
+			var operationView:Canvas = null;
+			
 			try
 			{
-				if (this._fileBrowserPM && this._fileBrowserPM.fileBrowser) 
+				if (this._operationArea.viewStack) 
 				{
-					this._operationArea.addElement(this._fileBrowserPM.fileBrowser);
+					this._operationArea.addElement(this._operationArea.viewStack);
 				}
 				
-				if (this._operationArea.logLabel) 
+				operationView = ApplicationFacade.getInstance().applicationContext.getObject(OPERATION_VIEW) as Canvas;
+				
+				if (operationView) 
 				{
-					this._operationArea.addElement(this._operationArea.logLabel);
+					if (this._fileBrowserPM && this._fileBrowserPM.fileBrowser) 
+					{
+						operationView.addElement(this._fileBrowserPM.fileBrowser);
+					}
+					
+					if (this._operationArea.logLabel) 
+					{
+						operationView.addElement(this._operationArea.logLabel);
+					}
+					
+					if (this._operationArea.logTextArea) 
+					{
+						operationView.addElement(this._operationArea.logTextArea);
+						this._operationArea.logTextArea.text += "启动应用程序！\n";
+					}
 				}
 				
-				if (this._operationArea.logTextArea) 
-				{
-					this._operationArea.addElement(this._operationArea.logTextArea);
-					this._operationArea.logTextArea.text += "启动应用程序！\n";
-				}
 				this.initViewEvent();
 			} 
 			catch(error:Error) 

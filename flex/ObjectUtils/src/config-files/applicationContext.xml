@@ -152,6 +152,73 @@
 				</object>
 			</value>
 		</property>
+		<property name="viewStack">
+			<value>
+				<object class="mx.containers.ViewStack">
+					<property name="percentWidth" value="100" />
+					<property name="percentHeight" value="100" />
+					<method-invocation name="addElement">
+						<arg>
+							<value>
+								<object id="DefaultView" class="mx.containers.Canvas">
+									<property name="id" value="defaultView" />
+									<property name="percentWidth" value="100" />
+									<property name="percentHeight" value="100" />
+<!-- 									<property name="layout"> -->
+<!-- 										<value> -->
+<!-- 											<object class="spark.layouts.VerticalLayout"> -->
+<!-- 												<property name="verticalAlign" value="middle" /> -->
+<!-- 												<property name="horizontalAlign" value="center" /> -->
+<!-- 											</object> -->
+<!-- 										</value> -->
+<!-- 									</property> -->
+									<method-invocation name="addElement">
+										<arg>
+											<value>
+												<object class="spark.components.Label">
+													<property name="text" value="请选择左边的菜单！" />
+													<method-invocation name="setStyle">
+														<arg value="fontFamliy" />
+														<arg value="宋体" />
+													</method-invocation>
+													<method-invocation name="setStyle">
+														<arg value="fontWeight" />
+														<arg value="bold" />
+													</method-invocation>
+													<method-invocation name="setStyle">
+														<arg value="fontSize" />
+														<arg value="24" />
+													</method-invocation>
+												</object>
+											</value>
+										</arg>
+									</method-invocation>
+								</object>
+							</value>
+						</arg>
+					</method-invocation>
+					<method-invocation name="addElement">
+						<arg>
+							<value>
+								<object id="OperationView" class="mx.containers.Canvas">
+									<property name="id" value="operationView" />
+									<property name="percentWidth" value="100" />
+									<property name="percentHeight" value="100" />
+<!-- 									<property name="layout"> -->
+<!-- 										<value> -->
+<!-- 											<object class="spark.layouts.VerticalLayout"> -->
+<!-- 												<property name="verticalAlign" value="middle" /> -->
+<!-- 												<property name="horizontalAlign" value="center" /> -->
+<!-- 											</object> -->
+<!-- 										</value> -->
+<!-- 									</property> -->
+								</object>
+							</value>
+						</arg>
+					</method-invocation>
+				</object>
+			</value>
+		</property>
 	</object>
 
 
@@ -169,7 +236,8 @@
 				</object>
 			</value>
 		</property>
-		<property name="showStatusBar" value="false" />
+		<property name="showStatusBar" value="true" />
+		<property name="statusText" value="欢迎使用ActionScript代码转换工具！" />
 		<property name="menuViewPM" ref="MenuViewPM" />
 		<property name="operationAreaPM" ref="OperationAreaPM" />
 	</object>

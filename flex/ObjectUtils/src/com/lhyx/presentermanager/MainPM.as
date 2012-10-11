@@ -18,6 +18,7 @@ package com.lhyx.presentermanager
 		
 		private var _layout:LayoutBase;
 		private var _showStatusBar:Boolean = true;
+		private var _statusText:String;
 		
 		private var _menuViewPM:MenuViewPM;
 		private var _operationAreaPM:OperationAreaPM;
@@ -34,6 +35,11 @@ package com.lhyx.presentermanager
 		public function set showStatusBar(value:Boolean):void
 		{
 			_showStatusBar = value;
+		}
+		
+		public function set statusText(value:String):void
+		{
+			_statusText = value;
 		}
 		
 		public function get main():Main
@@ -60,16 +66,17 @@ package com.lhyx.presentermanager
 			try
 			{
 				this.main.showStatusBar = this._showStatusBar;
+				this.main.statusText.text = this._statusText;
 				
 				if (this._layout) 
 				{
 					this.main.layout = this._layout;
 				}
 				
-				/*if (this._menuViewPM && this._menuViewPM.menuView) 
+				if (this._menuViewPM && this._menuViewPM.menuView) 
 				{
 					this.main.addElement(_menuViewPM.menuView);
-				}*/
+				}
 				
 				if (this._operationAreaPM && this._operationAreaPM.operationArea) 
 				{
