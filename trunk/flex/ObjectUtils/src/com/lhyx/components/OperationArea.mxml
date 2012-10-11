@@ -9,12 +9,16 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.containers.ViewStack;
+			
 			import spark.components.Label;
 			import spark.components.TextArea;
 
 			
 			private var _logLabel:Label;
 			private var _logTextArea:TextArea;
+			
+			private var _viewStack:ViewStack;
 
 			public function get logLabel():Label
 			{
@@ -34,6 +38,16 @@
 			public function set logTextArea(value:TextArea):void
 			{
 				_logTextArea = value;
+			}
+
+			public function get viewStack():ViewStack
+			{
+				return _viewStack;
+			}
+
+			public function set viewStack(value:ViewStack):void
+			{
+				_viewStack = value;
 			}
 
 		]]>
