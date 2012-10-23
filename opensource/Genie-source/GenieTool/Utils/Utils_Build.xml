@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+//========================================================================================
+//Copyright © 2012, Adobe Systems Incorporated
+//All rights reserved.
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//•	Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//•	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the 
+//	documentation and/or other materials provided with the distribution.
+//
+//	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+//  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE 
+//  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
+//  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//========================================================================================
+-->
+
+<project name="Utils" default="Utils.CreateJar" basedir=".">
+	<echo message="${ant.project.name}: ${ant.file}:: BaseDir : ${basedir}"/>
+	<property name="ant.reuse.loader" value="true"/>
+    <property environment="env"/>
+    <property name="CommonLibs.location" value="../CommonLibs"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+    
+	<!-- Set the Classpath-->
+	<path id="Utils.classpath">
+        <pathelement location="bin"/>
+		<pathelement location="${CommonLibs.location}/junit.jar"/>
+		<pathelement location="${CommonLibs.location}/xercesImpl.jar"/>
+		<pathelement location="${CommonLibs.location}/Sanselan.jar"/>
+		<pathelement location="${CommonLibs.location}/commons-lang-2.6.jar"/>
+		<pathelement location="${CommonLibs.location}/commons-io-2.0.1.jar"/>
+		<pathelement location="${CommonLibs.location}/commons-exec-1.1.jar"/>
+    </path>
+
+	<!-- Cleans the bin area and Create Dummy folder for holding Utils Compiled Classes -->
+	<target name="Utils.Clean">
+		<echo message="${ant.project.name}:Cleaning the bin area and Creating Dummy folder for holding Utils Compiled Classes"/>
+		<delete includeemptydirs="true" failonerror="false" quiet="true">
+		    <fileset dir="${basedir}\bin" includes="**/*"/>
+		</delete>
+		<mkdir dir="${basedir}\bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+	</target>
+	
+	<!-- Build Classes for Utils.jar -->	
+	<target name="Utils.Compile" depends="Utils.Clean"  description="">
+		<echo message="${ant.project.name}:Build Classes for Utils.jar"/>
+		<echo message="${ant.project.name}:Build Classes for Utils.jar"/>
+		<javac destdir="bin" source="${source}" target="${target}" 
+			includes="com/adobe/genie/utils/**/**"
+			listfiles="false">
+			<src path="src"/>
+            <classpath refid="Utils.classpath"/>
+        </javac>
+    </target>
+	
+	<!-- Bundle the Jar file and do not include JUnit.jar -->	
+	<target name="Utils.CreateJar" depends="Utils.Compile">
+		<echo message="${ant.project.name}:Build Utils.jar without bundeling Junit"/>
+		<jar destfile="Utils.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+			    <attribute name="Class-Path" value="."/>
+				<attribute name="Implementation-Title" value="Genie (Code Name)"/>
+				<attribute name="Implementation-Vendor" value="Adobe Systems Inc"/>
+			</manifest>
+			<fileset dir="bin"/>
+			<fileset dir="${basedir}" includes="assets/**" />
+			<zipfileset casesensitive = "false" excludes="META-INF/*" src="${CommonLibs.location}/xercesImpl.jar"/>
+			<zipfileset casesensitive = "false" includes="META-INF/*" prefix="xercesImpl/" src="${CommonLibs.location}/xercesImpl.jar" />
+			<zipfileset casesensitive = "false" excludes="META-INF/*" src="${CommonLibs.location}/commons-exec-1.1.jar"/>
+			<zipfileset casesensitive = "false" includes="META-INF/*" prefix="commons-exec-1.1/" src="${CommonLibs.location}/commons-exec-1.1.jar" />
+			<zipfileset casesensitive = "false" excludes="META-INF/*" src="${CommonLibs.location}/commons-lang-2.6.jar"/>
+			<zipfileset casesensitive = "false" includes="META-INF/*" prefix="commons-lang-2.6/" src="${CommonLibs.location}/commons-lang-2.6.jar" />
+			<zipfileset casesensitive = "false" excludes="META-INF/*" src="${CommonLibs.location}/commons-io-2.0.1.jar"/>
+			<zipfileset casesensitive = "false" includes="META-INF/*" prefix="commons-io-2.0.1/" src="${CommonLibs.location}/commons-io-2.0.1.jar" />
+			<zipfileset casesensitive = "false" excludes="META-INF/*" src="${CommonLibs.location}/Sanselan.jar"/>
+			<zipfileset casesensitive = "false" includes="META-INF/*" prefix="Sanselan/" src="${CommonLibs.location}/Sanselan.jar" />
+        </jar>
+	</target>
+</project>

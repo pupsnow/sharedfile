@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/CommonLibs/Sanselan.jar"/>
+	<classpathentry kind="lib" path="/CommonLibs/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="/CommonLibs/commons-exec-1.1.jar"/>
+	<classpathentry kind="lib" path="/CommonLibs/commons-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="/CommonLibs/xercesImpl.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

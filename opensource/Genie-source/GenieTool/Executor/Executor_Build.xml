@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+//========================================================================================
+//Copyright © 2012, Adobe Systems Incorporated
+//All rights reserved.
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//•	Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//•	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the 
+//	documentation and/or other materials provided with the distribution.
+//
+//	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+//  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE 
+//  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
+//  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//========================================================================================
+-->
+
+<project name="Executor" default="Executor.CreateJar" basedir=".">
+	<echo message="${ant.project.name}: ${ant.file}:: BaseDir : ${basedir}"/>
+	<property name="ant.reuse.loader" value="true"/>
+    <property environment="env"/>
+    <property name="UtilityClasses.location" value="../Utils"/>
+	<property name="GenieCommon.location" value="../GenieCommon"/>
+	<property name="GenieCom.location" value="../GenieCom"/>
+    <property name="CommonLibs.location" value="../CommonLibs"/>
+	<property name="ScriptInterface.location" value="../ScriptInterface"/>
+	<property name="GenieScripts.location" value="../GenieScripts"/>
+	<property name="GenieUIRobot.location" value="../GenieUIRobot"/>
+	<property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+
+	<property name="UtilityBuild.location" location="${UtilityClasses.location}/Utils_Build.xml"/>
+	<import file="${UtilityBuild.location}"/>
+
+	<property name="ScriptInterfaceBuild.location" location="${ScriptInterface.location}/ScriptInterface_Build.xml"/>
+	<import file="${ScriptInterfaceBuild.location}"/>
+
+	<property name="GenieCommonBuild.location" location="${GenieCommon.location}/GenieCommon_Build.xml"/>
+		<import file="${GenieCommonBuild.location}"/>
+	
+	<property name="GenieComBuild.location" location="${GenieCom.location}/GenieCom_Build.xml"/>
+	<import file="${GenieComBuild.location}"/>
+
+	<property name="GenieUIRobotBuild.location" location="${GenieUIRobot.location}/GenieUIRobot_Build.xml"/>
+	<import file="${GenieUIRobotBuild.location}"/>
+
+	<!-- Set the Classpath -->
+	<path id="Executor.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="${UtilityClasses.location}/Utils.jar"/>
+        <pathelement location="${GenieCom.location}/GenieCom.jar"/>	
+		<pathelement location="${GenieCommon.location}/GenieCommon.jar"/>	
+		<pathelement location="${ScriptInterface.location}/ScriptInterface.jar"/>
+		<pathelement location="${GenieUIRobot.location}/GenieUIRobot.jar"/>
+    </path>
+
+	<!-- Cleans the bin area and Create Dummy folder for holding Utils Compiled Classes -->
+	<target name="Executor.Clean" description="Cleans the bin area and create dummy folder">
+		<echo message="${ant.project.name}:Cleaning the bin area and Creating Dummy folder for holding Executor Compiled Classes"/>		
+		<delete includeemptydirs="true" failonerror="false" quiet="true">
+		    <fileset dir="${basedir}\bin" includes="**/*"/>
+		</delete>
+		<mkdir dir="${basedir}\bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+	</target>
+	
+	<!-- Builds the GenieCommon.jar as it is required for Current Project-->
+	<target name="Executor.GenieCommonBuild">
+        <echo message="${ant.project.name}:Building Dependent GenieCommon Jar"/>
+		<antcall target="GenieCommon.GenieCommon.CreateJar">
+			<param name="basedir" value="${GenieCommon.location}" />
+		</antcall>
+	</target>
+	
+	<!-- Builds the ScriptInterface.jar as it is required for Current Project-->
+	<target name="Executor.ScriptInterfaceBuild">
+        <echo message="${ant.project.name}:Building Dependent ScriptInterface Jar"/>
+		<antcall target="ScriptInterface.ScriptInterface.CreateJar">
+			<param name="basedir" value="${ScriptInterface.location}" />
+		</antcall>
+	</target>
+
+	
+	<!-- Builds the GenieCom.jar as it is required for Current Project-->
+	<target name="Executor.GenieComBuild">
+        <echo message="${ant.project.name}:Building Dependent GenieCom Classes Jar"/>
+		<antcall target="GenieCom.GenieCom.CreateJar">
+			<param name="basedir" value="${GenieCom.location}" />
+		</antcall>
+	</target>
+	
+	<!-- Builds the GenieUIRobot.jar as it is required for Current Project-->
+	<target name="Executor.GenieUIRobotBuild">
+        <echo message="${ant.project.name}:Building Dependent GenieUIRobot Classes Jar"/>
+		<antcall target="GenieUIRobot.GenieUIRobot.CreateJar">
+			<param name="basedir" value="${GenieUIRobot.location}" />
+		</antcall>
+	</target>	
+	
+	<!-- Build Classes for Executor.jar -->	
+	<target name="Executor.Compile" depends="Executor.Clean,Executor.GenieComBuild, Executor.GenieCommonBuild, Executor.ScriptInterfaceBuild, Executor.GenieUIRobotBuild"  description="Build Classes for Executor.jar">
+		<echo message="${ant.project.name}:Build Classes for Executor.jar"/>
+        <javac destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Executor.classpath"/>
+        </javac>
+        <!-- This is for building as Debug binaries
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Executor.classpath"/>
+        </javac>
+        -->
+    </target>
+	
+	<!-- Bundle the Jar file and do not include JUnit.jar -->	
+	<target name="Executor.CreateJar" depends="Executor.Compile">
+		<echo message="${ant.project.name}:Build Executor.jar without bundeling Junit"/>
+		<jar destfile="Executor.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Implementation-Title" value="Genie (Code Name)"/>
+				<attribute name="Implementation-Vendor" value="Adobe Systems Inc"/>
+			    <attribute name="Main-Class" value="com.adobe.genie.executor.Executor"/>
+			    <attribute name="Class-Path" value="."/>
+			</manifest>
+			<fileset dir="bin"/>
+			<fileset dir="${basedir}" includes="GenieSuite.dtd" />
+			<zipfileset excludes="META-INF/*.SF" src="${UtilityClasses.location}/Utils.jar"/>
+			<zipfileset excludes="META-INF/*.SF" src="${ScriptInterface.location}/ScriptInterface.jar"/>
+			<zipfileset excludes="META-INF/*.SF" src="${GenieCom.location}/GenieCom.jar"/>
+			<zipfileset excludes="META-INF/*.SF" src="${GenieCommon.location}/GenieCommon.jar"/>
+			<zipfileset excludes="META-INF/*.SF" src="${GenieUIRobot.location}/GenieUIRobot.jar"/>
+			<zipfileset dir="${basedir}" includes="version.xml" />
+		</jar>
+		
+		<!-- Copy the recently generated Jar to Genie Scripts Folder -->
+		<attrib file="${GenieScripts.location}/Executor.jar" readonly="false"/>
+		<delete file="${GenieScripts.location}/Executor.jar"/>
+		<copy todir="${GenieScripts.location}" file="Executor.jar" overwrite="true" failonerror="true"/>
+	</target>
+</project>

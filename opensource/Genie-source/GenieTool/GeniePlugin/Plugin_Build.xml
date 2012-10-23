@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+//========================================================================================
+//Copyright © 2012, Adobe Systems Incorporated
+//All rights reserved.
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//•	Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//•	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the 
+//	documentation and/or other materials provided with the distribution.
+//
+//	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+//  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE 
+//  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
+//  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//========================================================================================
+-->
+
+<project name="Plugin" default="Plugin.CreateJar" basedir=".">
+	<echo message="${ant.project.name}: ${ant.file}:: BaseDir : ${basedir}"/>
+	
+	<!-- Sets the Plugin Version Number -->
+	<buildnumber file="build.num"/>
+	<property name="plugin.version" value= "0.0.${build.number}" />
+	
+	<property name="ant.reuse.loader" value="true"/>
+    <property environment="env"/>
+    <property name="UtilityClasses.location" value="../Utils"/>
+	<property name="GenieCom.location" value="../GenieCom"/>
+	<property name="ScriptInterface.location" value="../ScriptInterface"/>	
+    <property name="CommonLibs.location" value="../CommonLibs"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+
+	<!-- Define build directories -->
+    <property name="build.root" location="${basedir}/Build" />
+    <property name="build.temp" location="${build.root}/temp" />
+    <property name="build.out"  location="${build.root}/product" />
+
+	
+	<property name="UtilityBuild.location" location="${UtilityClasses.location}/Utils_Build.xml"/>
+	<import file="${UtilityBuild.location}"/>
+
+	<property name="ScriptInterfaceBuild.location" location="${ScriptInterface.location}/ScriptInterface_Build.xml"/>
+	<import file="${ScriptInterfaceBuild.location}"/>
+	
+	<property name="GenieComBuild.location" location="${GenieCom.location}/GenieCom_Build.xml"/>
+	<import file="${GenieComBuild.location}"/>
+
+	<!-- Set the Classpath -->
+	<path id="Plugin.classpath">
+        <pathelement location="bin"/>
+		<pathelement location="${UtilityClasses.location}/Utils.jar"/>
+        <pathelement location="${GenieCom.location}/GenieCom.jar"/>	
+		<pathelement location="${ScriptInterface.location}/ScriptInterface.jar"/>		
+		<pathelement location="${CommonLibs.location}/mail.jar"/>
+		<pathelement location="${CommonLibs.location}/activation.jar"/>
+		<fileset dir="${env.ECLIPSE_HOME}/plugins/">
+		    <include name="**/*.jar" />
+		</fileset>
+    </path>
+
+	<!-- Cleans the bin area and Create Dummy folder for holding Utils Compiled Classes -->
+	<target name="Plugin.Clean" description="Cleans the bin area and create dummy folder">
+		<echo message="${ant.project.name}:Cleaning the bin area and Creating Dummy folder for holding Plugin Compiled Classes"/>		
+		<delete includeemptydirs="true" failonerror="false" quiet="true">
+		    <fileset dir="${basedir}/bin" includes="**/*"/>
+		</delete>
+		<delete includeemptydirs="true" failonerror="false" quiet="true">
+		    <fileset dir="${build.root}" includes="**/*"/>
+		</delete>
+		<mkdir dir="${basedir}/bin"/>
+		<mkdir dir="${build.root}"/>
+		<mkdir dir="${build.out}"/>
+		<mkdir dir="${build.temp}"/>	
+		<mkdir dir="${build.temp}/META-INF"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+	</target>
+	
+	<!-- Builds the ScriptInterface.jar as it is required for Current Project-->
+	<target name="Plugin.ScriptInterfaceBuild">
+        <echo message="${ant.project.name}:Building Dependent ScriptInterface Jar"/>
+		<antcall target="ScriptInterface.ScriptInterface.CreateJar">
+			<param name="basedir" value="${ScriptInterface.location}" />
+		</antcall>
+	</target>
+
+	<!-- Builds the GenieCom.jar as it is required for Current Project-->
+	<target name="Plugin.GenieComBuild">
+        <echo message="${ant.project.name}:Building Dependent GenieCom Classes Jar"/>
+		<antcall target="GenieCom.GenieCom.CreateJar">
+			<param name="basedir" value="${GenieCom.location}" />
+		</antcall>
+	</target>
+	
+	
+	<!-- Build Classes for Plugin.jar -->	
+	<target name="Plugin.Compile" depends="Plugin.Clean,Plugin.GenieComBuild,Plugin.ScriptInterfaceBuild"  description="Build Classes for Plugin.jar">
+		<echo message="${ant.project.name}:Build Classes for Plugin"/>
+        <javac destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Plugin.classpath"/>
+        </javac>
+        <!-- This is for building as Debug binaries
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Plugin.classpath"/>
+        </javac>
+        -->
+    </target>
+	
+	<!-- Bundle the Jar file and do not include JUnit.jar -->	
+	<target name="Plugin.CreateJar" depends="Plugin.Compile">
+		<echo message="${ant.project.name}:Build Eclipse Plugin"/>
+	      
+	      <!-- Read the MANIFEST.MF -->
+	      <copy file="META-INF/MANIFEST.MF" todir="${build.temp}" />
+	      <replace file="${build.temp}/MANIFEST.MF">
+	         <replacefilter token=":=" value="=" />
+	         <replacefilter token=":" value="=" />
+	         <replacetoken>;</replacetoken>
+	         <replacevalue>
+	         </replacevalue>
+	      </replace>
+	      <property file="${build.temp}/MANIFEST.MF"/>
+		  
+		  <!-- Create a Manifest file for Use of Ant Job-->
+		  <manifest file="${build.temp}/META-INF/MANIFEST.MF">
+			<attribute name="Bundle-ManifestVersion" value="${Bundle-ManifestVersion}"/>
+			<attribute name="Bundle-Name" value="${Bundle-Name}"/>
+			<attribute name="Bundle-Vendor" value="${Bundle-Vendor}"/>
+			<attribute name="Bundle-SymbolicName" value="${Bundle-Name};singleton:=true"/>
+			<attribute name="Bundle-Version" value="${plugin.version}"/>
+			<attribute name="Bundle-Activator" value="${Bundle-Activator}"/>
+			<attribute name="Require-Bundle" value="org.eclipse.ui,
+				 org.eclipse.core.runtime,org.eclipse.ui.console,
+				 org.eclipse.ui.forms;bundle-version=&quot;3.4.1&quot;,
+				 org.eclipse.rcp;bundle-version=&quot;3.5.0&quot;,
+				 org.eclipse.ui.views.properties.tabbed;bundle-version=&quot;3.5.0&quot;,
+				 org.eclipse.core.expressions;bundle-version=&quot;3.4.100&quot;,
+				 org.eclipse.jface.databinding;bundle-version=&quot;1.3.1&quot;,
+				 org.eclipse.core.databinding;bundle-version=&quot;1.2.0&quot;,
+				 org.eclipse.core.databinding.beans;bundle-version=&quot;1.2.0&quot;"/>
+			<attribute name="Bundle-ActivationPolicy" value="${Bundle-ActivationPolicy}"/>
+			<attribute name="Bundle-RequiredExecutionEnvironment" value="${Bundle-RequiredExecutionEnvironment}"/>
+		  	<attribute name="Bundle-ClassPath" value=".,
+				 GenieCom.jar,
+				 Utils.jar,
+				 activation.jar,
+				 mail.jar,
+				 ScriptInterface.jar
+				"/>
+		  </manifest>
+
+	      <!-- Plugin locations -->
+	      <property name="plugin.jarname" value= "${Bundle-Name}" />
+	      <property name="plugin.jar" location="${build.temp}/jars/plugins/${plugin.jarname}.jar" />
+
+		  <!-- Assemble plug-in JAR -->
+		  <mkdir dir="${build.temp}/jars/plugins" />
+		  <zip destfile="${plugin.jar}">
+			<zipfileset dir="bin" />
+		  	<zipfileset dir="${basedir}" includes="GenieSuite.dtd" />
+			<zipfileset dir="${build.temp}" includes="META-INF/MANIFEST.MF" />
+			<zipfileset dir="${basedir}" includes="plugin.xml" />
+			<zipfileset dir="${basedir}" includes="contexts.xml" />
+			<zipfileset dir="${basedir}" includes="icons/*.png" />
+			<zipfileset dir="${basedir}" includes="icons/*.ico" />
+			<zipfileset dir="${basedir}" includes="icons/components/*.png" />
+			<zipfileset dir="${basedir}" includes="icons/components/*.jpg" />
+		  	<zipfileset dir="${basedir}" includes="resources/*.*" />
+
+		  	<zipfileset dir="${UtilityClasses.location}" includes="Utils.jar"/>
+			<zipfileset dir="${GenieCom.location}" includes="GenieCom.jar"/>
+		  	<zipfileset dir="${ScriptInterface.location}" includes="ScriptInterface.jar"/>
+
+		  	<zipfileset dir="${CommonLibs.location}" includes="mail.jar"/>
+		  	<zipfileset dir="${CommonLibs.location}" includes="activation.jar"/>
+		  </zip>
+			
+		  <copy file="${plugin.jar}" todir="${build.out}" overwrite="true"/>
+	</target>
+
+</project>

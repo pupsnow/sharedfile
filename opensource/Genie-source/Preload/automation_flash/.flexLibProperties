@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="AutomationClasses"/>
+    <classEntry path="fl.automation.delegates.controls.FlashBaseButtonAutomationImpl"/>
+    <classEntry path="fl.automation.delegates.controls.FlashButtonAutomationImpl"/>
+    <classEntry path="fl.automation.delegates.controls.FlashCellRendererAutomationImpl"/>
+    <classEntry path="fl.automation.delegates.controls.FlashCheckBoxAutomationImpl"/>
+    <classEntry path="fl.automation.delegates.controls.FlashComboBoxAutomationImpl"/>
+    <classEntry path="fl.automation.delegates.controls.FlashLabelButtonAutomationImpl"/>
+    <classEntry path="fl.automation.delegates.controls.FlashMovieClipAutomationImpl"/>
+    <classEntry path="fl.automation.delegates.controls.FlashNumericStepperAutomationImpl"/>
+    <classEntry path="fl.automation.delegates.controls.FlashRadioButtonAutomationImpl"/>
+    <classEntry path="fl.automation.delegates.controls.FlashTextInputAutomationImpl"/>
+    <classEntry path="fl.automation.delegates.core.FlashUIComponentAutomationImpl"/>
+    <classEntry path="mx.automation.Genie.GeniePropertyDescriptor"/>
+    <classEntry path="mx.automation.Genie.IGeniePropertyDescriptor"/>
+    <classEntry path="mx.automation.codec.AutomationObjectPropertyCodec"/>
+    <classEntry path="mx.automation.codec.DefaultPropertyCodec"/>
+    <classEntry path="mx.automation.codec.IAutomationPropertyCodec"/>
+    <classEntry path="mx.automation.codec.KeyCodePropertyCodec"/>
+    <classEntry path="mx.automation.codec.KeyModifierPropertyCodec"/>
+    <classEntry path="mx.automation.codec.RendererPropertyCodec"/>
+    <classEntry path="mx.automation.codec.TriggerEventPropertyCodec"/>
+    <classEntry path="mx.automation.delegates.TextFieldAutomationHelper"/>
+    <classEntry path="mx.automation.delegates.containers.AccordionAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.containers.ApplicationAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.containers.BoxAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.containers.CanvasAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.containers.DividedBoxAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.containers.FormAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.containers.FormItemAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.containers.PanelAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.containers.TabNavigatorAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.containers.ViewStackAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.controls.ButtonAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.controls.CheckBoxAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.controls.NumericStepperAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.controls.RadioButtonAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.controls.TextAreaAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.controls.TextInputAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.controls.ToolTipAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.core.ContainerAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.core.ScrollControlBaseAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.core.UIComponentAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.core.UITextFieldAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.flashflexkit.FlexContentHolderAutomationImpl"/>
+    <classEntry path="mx.automation.delegates.flashflexkit.UIMovieClipAutomationImpl"/>
+    <classEntry path="mx.automation.events.AutomationEvent"/>
+    <classEntry path="mx.automation.events.AutomationRecordEvent"/>
+    <classEntry path="mx.automation.events.AutomationReplayEvent"/>
+    <classEntry path="mx.automation.events.EventDetails"/>
+    <classEntry path="mx.automation.events.ListItemSelectEvent"/>
+    <classEntry path="mx.automation.events.MarshalledAutomationEvent"/>
+    <classEntry path="mx.automation.events.TextSelectionEvent"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

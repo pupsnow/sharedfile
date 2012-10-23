@@ -1,0 +1,1 @@
+java -Xms512M -Xmx512M -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -jar Executor.jar "bin/scripts/Unnamed.class"

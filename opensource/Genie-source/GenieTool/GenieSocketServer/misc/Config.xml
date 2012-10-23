@@ -1,0 +1,42 @@
+
+<Config>
+	<CustomComponent name="MouseOver_Button">
+		<Executor>
+			<ClassFilePath value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\MouseOver_Button\mouseOver_Button\GenieMouseOverButton.class"/>
+		</Executor>
+		<Plugin>
+			<MapDataFilePath value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\MouseOver_Button\MouseOver_ButtonMapData.xml"/>
+		</Plugin>
+		<Preload>
+			<ComponentSWF value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\MouseOver_Button\MouseOverButton.swf"/>
+			<EnvFile value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\MouseOver_Button\MouseOver_ButtonEnv.xml"/>
+		</Preload>
+	</CustomComponent>
+	<ExposeChildObjects>
+		<Class Name="SuperPanel::SuperPanel" />
+	</ExposeChildObjects>
+	<CustomComponent name="ResizePanel">
+		<Executor>
+			<ClassFilePath value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\ResizePanel\CustomEvent\ResizePanel\GenieResizePanel.class"/>
+		</Executor>
+		<Plugin>
+			<MapDataFilePath value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\ResizePanel\ResizePanelMapData.xml"/>
+		</Plugin>
+		<Preload>
+			<ComponentSWF value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\ResizePanel\ResizePanelAutomation.swf"/>
+			<EnvFile value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\ResizePanel\ResizePanelEnv.xml"/>
+		</Preload>
+	</CustomComponent>
+	<CustomComponent name="CustomSprite">
+		<Executor>
+			<ClassFilePath value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\CustomSprite\customSprite\GenieSprite.class"/>
+		</Executor>
+		<Plugin>
+			<MapDataFilePath value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\CustomSprite\CustomSpriteMapData.xml"/>
+		</Plugin>
+		<Preload>
+			<ComponentSWF value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\CustomSprite\CustomSprite.swf"/>
+			<EnvFile value="C:\Genie\CustomComponent\Samples\AutomationSupport\Binary\CustomSprite\CustomSpriteEnv.xml"/>
+		</Preload>
+	</CustomComponent>
+</Config>

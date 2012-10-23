@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry including="version.xml" kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/GenieCom/GenieCom.jar"/>
+	<classpathentry kind="lib" path="/ScriptInterface/ScriptInterface.jar"/>
+	<classpathentry exported="true" kind="lib" path="version.xml" sourcepath="Executor.jar"/>
+	<classpathentry kind="lib" path="/GenieUIRobot/GenieUIRobot.jar"/>
+	<classpathentry kind="lib" path="/Utils/Utils.jar"/>
+	<classpathentry kind="lib" path="/GenieCommon/GenieCommon.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>GeniePreload</name>
+	<comment></comment>
+	<projects>
+		<project>automation_agent</project>
+		<project>automation_flash</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>[source path] framework-bundles-en_US</name>
+			<type>2</type>
+			<location>C:/Program Files/Adobe/Adobe Flash Builder 4.5/sdks/GenieFlexSDK4_5_1/frameworks/projects/framework/bundles/en_US</location>
+		</link>
+		<link>
+			<name>[source path] mx-bundles-en_US</name>
+			<type>2</type>
+			<location>C:/Program Files/Adobe/Adobe Flash Builder 4.5/sdks/GenieFlexSDK4_5_1/frameworks/projects/mx/bundles/en_US</location>
+		</link>
+	</linkedResources>
+</projectDescription>

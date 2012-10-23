@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+//========================================================================================
+//Copyright © 2012, Adobe Systems Incorporated
+//All rights reserved.
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//•	Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//•	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the 
+//	documentation and/or other materials provided with the distribution.
+//
+//	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+//  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE 
+//  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
+//  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//========================================================================================
+-->
+<plugin>
+
+   <extension point="org.eclipse.ui.startup">
+      <startup class="com.adobe.geniePlugin.Activator"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Genie"
+            id="GeniePlugin">
+      </category>
+      <view
+            name="Genie (Codename)"
+            icon="icons/GenieSmall.png"
+            category="GeniePlugin"
+            class="com.adobe.geniePlugin.views.GenieView"
+            id="com.adobe.geniePlugin.views.GenieView">
+      </view>
+      <view
+            category="GeniePlugin"
+            class="com.adobe.geniePlugin.views.GenieWatchView"
+            icon="icons/watch.png"
+            id="com.adobe.geniePlugin.views.GenieWatchView"
+            name="Genie Expressions"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.TaskList"
+               relationship="right"
+               id="labelplugin.views.GenieView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="genieplugin.WorkbenchPropertyPage1"
+            id="GeniePlugin.page1"
+            name="name">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="GeniePlugin.GenieGroup"
+            name="Genie">
+      </category>
+       <command
+            categoryId="GeniePlugin.GenieGroup"
+            id="GeniePlugin.Connect"
+            name="Connect">
+      </command>
+      <command
+            defaultHandler="com.adobe.geniePlugin.comunication.ConnectToSWFHandler"
+            id="referenceToMenuId"
+            name="referenceToMenuId">
+      </command>
+      <command
+            categoryId="GeniePlugin.GenieGroup"
+            id="GeniePlugin.Disabled"
+            name="name">
+      </command>
+      <command
+            categoryId="GeniePlugin.GenieGroup"
+            id="GeniePlugin.aboutGenie"
+            name="aboutGenie">
+      </command>
+      <command
+            categoryId="GeniePlugin.GenieGroup"
+            id="GeniePlugin.showGenieMenu"
+            name="showGenieMenu">
+      </command>
+      <command
+            categoryId="GeniePlugin.GenieGroup"
+            id="GeniePlugin.showWatchView"
+            name="showWatchView">
+      </command>
+      <command
+            categoryId="GeniePlugin.GenieGroup"
+            id="GeniePlugin.testSuiteEditor"
+            name="testSuiteEditor">
+      </command>
+      <command
+            categoryId="GeniePlugin.GenieGroup"
+            id="GeniePlugin.deviceInfo"
+            name="deviceInfo">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+      		class="com.adobe.geniePlugin.comunication.ConnectToSWFHandler"
+            commandId="GeniePlugin.Connect">
+      </handler>
+      <handler
+            class="com.adobe.geniePlugin.ui.CustomHandler"
+            commandId="GeniePlugin.aboutGenie">
+      </handler>
+      <handler
+            class="com.adobe.geniePlugin.ui.CustomHandler"
+            commandId="GeniePlugin.showGenieMenu">
+      </handler>
+      <handler
+            class="com.adobe.geniePlugin.ui.CustomHandler"
+            commandId="GeniePlugin.showWatchView">
+      </handler>
+      <handler
+            class="com.adobe.geniePlugin.ui.CustomHandler"
+            commandId="GeniePlugin.testSuiteEditor">
+      </handler>
+      <handler
+            class="com.adobe.geniePlugin.ui.CustomHandler"
+            commandId="GeniePlugin.deviceInfo">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="GeniePlugin.GenieToolbar">
+            <command
+                  commandId="referenceToMenuId"
+                  icon="icons/Connect.png"
+                  label="Connect"
+                  style="pulldown"
+                  tooltip="Connect to SWF">
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="GeniePlugin.menus"
+               label="Genie">
+           <command
+                  commandId="GeniePlugin.showGenieMenu"
+                  icon="icons/GenieSmall.png"
+                  id="showGenieMenu"
+                  label="Show Genie View"
+                  mnemonic="v"
+                  style="push">
+            </command>
+           
+            <command
+                  commandId="GeniePlugin.aboutGenie"
+                  id="aboutGenie"
+                  label="About Genie"
+                  style="push">
+            </command>
+            
+         </menu>
+      </menuContribution>
+      <menuContribution
+            class="com.adobe.geniePlugin.ui.AddCommandsToMenu"
+            locationURI="menu:referenceToMenuId">
+         <command
+               commandId="referenceToMenuId"
+               label="SWF1"
+               style="push">
+         </command>
+         <command
+               commandId="referenceToMenuId"
+               label="SWF2"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="GeniePlugin.menuContribution7">
+         <command
+               commandId="referenceToMenuId"
+               label="Connect"
+               style="pulldown">
+         </command>
+      </menuContribution>
+   </extension>
+
+</plugin>

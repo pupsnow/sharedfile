@@ -1,0 +1,1 @@
+java -Dfile.encoding=UTF-8 -Xms512M -Xmx512M -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -jar GenieSocketServer.jar

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+//========================================================================================
+//Copyright © 2012, Adobe Systems Incorporated
+//All rights reserved.
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//•	Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//•	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the 
+//	documentation and/or other materials provided with the distribution.
+//
+//	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+//  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE 
+//  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
+//  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//========================================================================================
+-->
+
+<project name="GenieUIRobot" default="GenieUIRobot.CreateJar" basedir=".">
+	<echo message="${ant.project.name}: ${ant.file}:: BaseDir : ${basedir}"/>
+	<property name="ant.reuse.loader" value="true"/>
+    <property environment="env"/>
+	<property name="UtilityClasses.location" value="../Utils"/>
+    <property name="CommonLibs.location" value="../CommonLibs"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+    
+	<property name="UtilityBuild.location" location="${UtilityClasses.location}/Utils_Build.xml"/>
+	<import file="${UtilityBuild.location}"/>
+	
+	<!-- Set the Classpath-->
+	<path id="GenieUIRobot.classpath">
+		<pathelement location="${UtilityClasses.location}/Utils.jar"/>
+        <pathelement location="bin"/>
+    </path>
+
+	<!-- Cleans the bin area and Create Dummy folder for holding GenieUIRobot Compiled Classes -->
+	<target name="GenieUIRobot.Clean">
+		<echo message="${ant.project.name}:Cleaning the bin area and Creating Dummy folder for holding GenieUIRobot Compiled Classes"/>
+		<delete includeemptydirs="true" failonerror="false" quiet="true">
+		    <fileset dir="${basedir}\bin" includes="**/*"/>
+		</delete>
+		<mkdir dir="${basedir}\bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+	</target>
+	
+	<!-- Builds the Utils.Jar as it is required for Current Project-->
+	<target name="GenieUIRobot.UtilsBuild">
+        <echo message="${ant.project.name}:Building Dependent Utility Classes Jar"/>
+		<antcall target="Utils.Utils.CreateJar">
+			<param name="basedir" value="${UtilityClasses.location}" />
+		</antcall>
+	</target>
+		
+	<!-- Build Classes for GenieUIRobot.jar -->	
+	<target name="GenieUIRobot.Compile" depends="GenieUIRobot.Clean, GenieUIRobot.UtilsBuild"  description="">
+		<echo message="${ant.project.name}:Build Classes for GenieUIRobot.jar"/>
+        
+		<javac destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="GenieUIRobot.classpath"/>
+        </javac>
+        <!-- This is for building as Debug binaries
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="GenieUIRobot.classpath"/>
+        </javac>
+        -->
+    </target>
+	
+	<!-- Bundle the Jar file and do not include JUnit.jar -->	
+	<target name="GenieUIRobot.CreateJar" depends="GenieUIRobot.Compile">
+		<echo message="${ant.project.name}:Build GenieUIRobot.jar without bundeling Junit"/>
+		<jar destfile="GenieUIRobot.jar">
+	        <manifest>
+	            <attribute name="Class-Path" value="."/>
+	        	<attribute name="Implementation-Title" value="Genie (Code Name)"/>
+	        	<attribute name="Implementation-Vendor" value="Adobe Systems Inc"/>
+	        </manifest>
+			<fileset dir="bin"/>
+			<fileset dir="${basedir}" includes="icons/*.png" />
+        </jar>
+	</target>
+</project>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+//========================================================================================
+//Copyright © 2012, Adobe Systems Incorporated
+//All rights reserved.
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//•	Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//•	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the 
+//	documentation and/or other materials provided with the distribution.
+//
+//	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+//  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE 
+//  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
+//  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//========================================================================================
+-->
+
+<project name="GenieSocketServer" default="GenieSocketServer.CreateJar" basedir=".">
+	<echo message="${ant.project.name}: ${ant.file}:: BaseDir : ${basedir}"/>
+	<property name="ant.reuse.loader" value="true"/>
+    <property environment="env"/>
+    <property name="UtilityClasses.location" value="../Utils"/>
+	<property name="GenieCom.location" value="../GenieCom"/>  
+    <property name="CommonLibs.location" value="../CommonLibs"/>
+   
+	<property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+
+	<property name="UtilityBuild.location" location="${UtilityClasses.location}/Utils_Build.xml"/>
+	<import file="${UtilityBuild.location}"/>
+
+	<property name="GenieComBuild.location" location="${GenieCom.location}/GenieCom_Build.xml"/>
+	<import file="${GenieComBuild.location}"/>
+	
+	<!-- Set the Classpath -->
+	<path id="GenieSocketServer.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="${UtilityClasses.location}/Utils.jar"/>
+		<pathelement location="${GenieCom.location}/GenieCom.jar"/>	
+		<pathelement location="${CommonLibs.location}/jar-in-jar-loader.zip"/>
+    </path>
+
+	<!-- Cleans the bin area and Create Dummy folder for holding GenieSocketServer Compiled Classes -->
+	<target name="GenieSocketServer.Clean" description="Cleans the bin area and create dummy folder">
+		<echo message="${ant.project.name}:Cleaning the bin area and Creating Dummy folder for holding GenieSocketServer Compiled Classes"/>		
+		<delete includeemptydirs="true" failonerror="false" quiet="true">
+		    <fileset dir="${basedir}\bin" includes="**/*"/>
+		</delete>
+		<mkdir dir="${basedir}\bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+	</target>
+
+	<!-- Builds the Utils.Jar as it is required for Current Project-->
+	<target name="GenieSocketServer.UtilsBuild">
+        <echo message="${ant.project.name}:Building Dependent Utility Classes Jar"/>
+		<antcall target="Utils.Utils.CreateJar">
+			<param name="basedir" value="${UtilityClasses.location}" />
+		</antcall>
+	</target>
+	
+	<!-- Builds the GenieCom.jar as it is required for Current Project-->
+	<target name="GenieSocketServer.GenieComBuild">
+        <echo message="${ant.project.name}:Building Dependent GenieCom Classes Jar"/>
+		<antcall target="GenieCom.GenieCom.CreateJar">
+			<param name="basedir" value="${GenieCom.location}" />
+		</antcall>
+	</target>
+					
+	<!-- Build Classes for GenieSocketServer -->	
+	<target name="GenieSocketServer.Compile" depends="GenieSocketServer.Clean,GenieSocketServer.UtilsBuild, GenieSocketServer.GenieComBuild">
+		<echo message="${ant.project.name}:Build Classes for GenieSocketServer.jar"/>
+		<javac destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="GenieSocketServer.classpath"/>
+        </javac>
+    </target>
+	
+	<!-- Bundle the Jar file and do not include JUnit.jar -->
+	<target name="GenieSocketServer.CreateJar"  depends="GenieSocketServer.Compile">
+		<echo message="${ant.project.name}:Build GenieSocketServer.jar without bundeling Junit"/>
+        <jar destfile="GenieSocketServer.jar">
+            <manifest>
+				<attribute name="Implementation-Title" value="Genie (Code Name)"/>
+				<attribute name="Implementation-Vendor" value="Adobe Systems Inc"/>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="com.adobe.genie.genieSocketServer.GenieServerMain"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ GenieCom.jar Utils.jar"/>
+            </manifest>
+        	<zipfileset src="${CommonLibs.location}/jar-in-jar-loader.zip"/>
+        	<zipfileset dir="${basedir}" includes="version.xml" />
+            <fileset dir="bin"/>
+            <zipfileset dir="${UtilityClasses.location}" includes="Utils.jar"/>
+        	<zipfileset dir="${GenieCom.location}" includes="GenieCom.jar"/>
+        </jar>
+    </target>
+</project>

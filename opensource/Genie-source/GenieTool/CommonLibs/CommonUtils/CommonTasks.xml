@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+//========================================================================================
+//Copyright © 2012, Adobe Systems Incorporated
+//All rights reserved.
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//•	Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//•	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the 
+//	documentation and/or other materials provided with the distribution.
+//
+//	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+//  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE 
+//  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
+//  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//========================================================================================
+-->
+
+<project name="CommonTasks" default="CommonTasks.CreateGenieStage" basedir=".">
+	<echo message="${ant.project.name}: ${ant.file}:: BaseDir : ${basedir}"/>
+	<property name="ant.reuse.loader" value="true"/>
+    <property environment="env"/>
+	<property name="MajorVersion" value="2.0"/>
+	
+	<property name="VersionNumber" value="0"/> 
+
+	<property name="CommonLibs.location" value="${basedir}/../"/>
+	<property name="GenieSocketServer.location" value="${CommonLibs.location}../GenieSocketServer"/>
+	<property name="GeniePlugin.location" value="${CommonLibs.location}../GeniePlugin"/>
+	<property name="Executor.location" value="${CommonLibs.location}../Executor"/>
+	<property name="GenieCom.location" value="${CommonLibs.location}../GenieCom"/>
+	<property name="GenieCommon.location" value="${CommonLibs.location}../GenieCommon"/>
+	<property name="GenieScripts.location" value="${CommonLibs.location}../GenieScripts"/>
+	<property name="Prelaod.location" value="${CommonLibs.location}../../Preload/GeniePreload"/>
+	<property name="Utils.location" value="${CommonLibs.location}../Utils"/>		
+	<property name="Documents.location" value="${CommonLibs.location}../../Documents"/>
+		
+	<property name="GenieStage.location" value="${CommonLibs.location}../../GenieStagingArea/Genie"/>
+	<property name="GenieDocsStage.location" value="${CommonLibs.location}../../GenieStagingArea/GenieDocs"/>
+	
+	<!-- Creating the Complete Genie Stage Area -->
+	<target name="CommonTasks.CreateGenieStage">
+		<echo message="${ant.project.name}:Creating the Complete Genie Stage Area"/>
+		<delete includeemptydirs="true" failonerror="true" quiet="true">
+		    <fileset dir="${GenieStage.location}/../" includes="**/*"/>
+		</delete>
+		<echo message="${ant.project.name}:Creating the Folder Structure for Genie Stage Area"/>
+		<mkdir dir="${GenieStage.location}/../"/>
+		<mkdir dir="${GenieStage.location}/../bin"/>
+		<mkdir dir="${GenieStage.location}"/>
+		<mkdir dir="${GenieStage.location}/GenieScripts"/>
+		<mkdir dir="${GenieStage.location}/GeniePlugin"/>
+		<mkdir dir="${GenieStage.location}/GenieServer"/>
+		<mkdir dir="${GenieStage.location}/Documentation"/>
+		<mkdir dir="${GenieStage.location}/GenieLibrary"/>
+
+		<echo message="${ant.project.name}:Copying GenieScript along with Executor"/>
+        <copy includeemptydirs="false" todir="${GenieStage.location}/GenieScripts"  overwrite="true" failonerror="true">
+            <fileset dir="${GenieScripts.location}"/>
+        </copy>
+
+		<echo message="${ant.project.name}:Copying GeniePlugin"/>
+		<copy file="${GeniePlugin.location}/Build/product/GeniePlugin.jar" todir="${GenieStage.location}/GeniePlugin"  overwrite="true" failonerror="true"/>
+
+		<echo message="${ant.project.name}:Copying GenieServer"/>
+		<copy file="${GenieSocketServer.location}/GenieSocketServer.jar" todir="${GenieStage.location}/GenieServer"  overwrite="true" failonerror="true"/>
+		<copy includeemptydirs="false" todir="${GenieStage.location}/GenieServer"  overwrite="true" failonerror="true">
+			<fileset dir="${GenieSocketServer.location}/misc" excludes="**/*.xml"/>
+		</copy>
+
+		<echo message="${ant.project.name}:Copying GeniePreload"/>
+		<copy file="${Prelaod.location}/bin/WEB/GenieLibrary.swf" todir="${GenieStage.location}/GenieLibrary"  overwrite="true" failonerror="true"/>
+
+		<echo message="${ant.project.name}:Copying Sample GeniePreload mm.cfg  files"/>
+		<copy file="${Prelaod.location}/mm.cfg" todir="${GenieStage.location}/GenieLibrary"  overwrite="true" failonerror="false"/>
+
+		<echo message="${ant.project.name}:Staging Complete. Removing any readonly attributes"/>
+		<attrib readonly="false">
+			<fileset dir="${GenieStage.location}" includes="**/*"/>
+		</attrib>
+		
+		<echo message="${ant.project.name}:Oh Now we are ready with the build. Lets ZIP it"/>
+		<zip destfile="${GenieStage.location}/../bin/Genie_${MajorVersion}.${VersionNumber}.zip" 
+			basedir="${GenieStage.location}/../" 
+			excludes="bin, GenieDocs, bin/**, GenieDocs/**, GenieDocs.zip" 
+			update="true"
+		/>
+	</target>
+
+	<!-- Generate the Java Docs for Genie -->
+    <target name="CommonTasks.GenerateJavaDocs">
+		<echo message="${ant.project.name}:Creating the Folder Structure for Genie Doc Location"/>
+		<delete includeemptydirs="true" quiet="true">
+			<fileset dir="${GenieDocsStage.location}" includes="**/*"/>
+			<fileset dir="${GenieDocsStage.location}/../" includes="*.zip"/>
+		</delete>
+    	<mkdir dir="${GenieDocsStage.location}/../"/>    		
+    	<mkdir dir="${GenieDocsStage.location}"/>
+        
+    	<echo message="${ant.project.name}:Now Generating JavaDocs Zip"/>
+        <javadoc access="public" failonerror="true"
+	        	additionalparam="-J-Xmx512m"
+	        	classpath="${CommonLibs.location}/../GenieUIRobot;
+	        			${CommonLibs.location}/../GenieCom;
+        				${CommonLibs.location}/../GenieCommon;
+	        			${CommonLibs.location}/../Utils;
+	    				${CommonLibs.location}/../ScriptInterface;
+						${CommonLibs.location}/../GenieCom/GenieCom.jar;
+        				${CommonLibs.location}/../GenieCom/GenieCommon.jar;
+						${CommonLibs.location}/../ScriptInterface/ScriptInterface.jar;
+	    				${CommonLibs.location}/../GenieUIRobot/GenieUIRobot.jar;
+	        			${CommonLibs.location}/../Utils/Utils.jar"
+	        	destdir="${GenieDocsStage.location}" 
+	        	nodeprecated="false" 
+	        	nodeprecatedlist="false" 
+	        	noindex="false" 
+	        	nonavbar="false" 
+	        	notree="false" 
+	        	source="1.5" 
+	        	splitindex="true" 
+	        	use="true" 
+	        	version="true"
+	        	windowtitle="Genie JavaDocs"
+        		Overview="${Executor.location}/src/com/adobe/genie/executor/overview.html"
+    		>
+        	<packageset dir="${Executor.location}/src" defaultexcludes="yes">
+				<include name="com/adobe/genie/executor/doc-files/**"/>
+			</packageset>
+        	
+        	<packageset dir="${Executor.location}/src" defaultexcludes="yes">
+        	      <include name="com/adobe/genie/executor/components/**"/>
+       	    </packageset>
+
+        	<packageset dir="${Executor.location}/src" defaultexcludes="yes">
+        	      <include name="com/adobe/genie/executor/uiEvents/**"/>
+       	    </packageset>
+
+        	<packageset dir="${Executor.location}/src" defaultexcludes="yes">
+        	      <include name="com/adobe/genie/executor/objects/**"/>
+       	    </packageset>
+
+        	<fileset dir="${Executor.location}/src" defaultexcludes="yes">
+        		<include name="com/adobe/genie/executor/package-info.java"/>
+        		<include name="com/adobe/genie/executor/GenieScript.java"/>
+        		<include name="com/adobe/genie/executor/GenieHelper.java"/>
+        		<include name="com/adobe/genie/executor/GenieLocatorInfo.java"/>
+        		<include name="com/adobe/genie/executor/GenieScriptLogger.java"/>
+        		<include name="com/adobe/genie/executor/GenieLogHelper.java"/>
+        		<include name="com/adobe/genie/executor/GenieAssertion.java"/>
+           		<include name="com/adobe/genie/executor/Genie.java"/>
+           		<include name="com/adobe/genie/executor/LogConfig.java"/>
+       	    </fileset>
+       	 	
+        	<packageset dir="${GenieCommon.location}/src" defaultexcludes="yes">
+        	      <include name="com/adobe/genie/executor/exceptions/**"/>
+       	    </packageset>
+
+        	<packageset dir="${GenieCommon.location}/src" defaultexcludes="yes">
+        	      <include name="com/adobe/genie/executor/enums/**"/>
+       	    </packageset>
+
+        	<packageset dir="${GenieCommon.location}/src" defaultexcludes="yes">
+        	      <include name="com/adobe/genie/executor/objects/**"/>
+       	    </packageset>
+
+        	<fileset dir="${GenieCom.location}/src" defaultexcludes="yes">
+        		<include name="com/adobe/genie/genieCom/package-info.java"/>
+        		<include name="com/adobe/genie/genieCom/SWFApp.java"/>
+        	</fileset>
+        		
+       	    <doctitle><![CDATA[<h1>Genie ${MajorVersion} API Specifications</h1>]]></doctitle>
+        	<header><![CDATA[<i>Genie ${MajorVersion} API Specifications</i>]]></header>
+        	<bottom><![CDATA[
+        		<table width="100%">
+					<tr>
+						<td align="right">
+        					<i>Copyright &#169; 2012 Adobe Systems Inc. All Rights Reserved.</i>
+						</td>
+					</tr>
+				</table>
+      		]]></bottom>
+    	</javadoc>
+
+		<echo message="${ant.project.name}:Oh Now we are ready with the Genie JavaDocs. Lets ZIP it"/>
+		<zip destfile="${GenieDocsStage.location}/../GenieDocs.zip" 
+			basedir="${GenieDocsStage.location}/../" 
+			excludes="**/*.zip, bin, Genie, bin/**, Genie/**, *.PDF" 
+			update="true"
+		/>
+    	
+    	<echo message="${ant.project.name}:Lets Move Zip to GenieScript Project"/>
+		<attrib file="${GenieScripts.location}/doc/GenieDocs.zip" readonly="false"/>
+		<delete file="${GenieScripts.location}/doc/GenieDocs.zip"/>
+    	<copy file="${GenieDocsStage.location}/../GenieDocs.zip" todir="${GenieScripts.location}/doc" overwrite="true" failonerror="true"/>
+    </target>
+</project>

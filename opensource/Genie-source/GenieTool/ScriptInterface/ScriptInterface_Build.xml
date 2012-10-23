@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+//========================================================================================
+//Copyright © 2012, Adobe Systems Incorporated
+//All rights reserved.
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//•	Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//•	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the 
+//	documentation and/or other materials provided with the distribution.
+//
+//	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+//  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE 
+//  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
+//  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//========================================================================================
+-->
+
+<project name="ScriptInterface" default="ScriptInterface.CreateJar" basedir=".">
+	<echo message="${ant.project.name}: ${ant.file}:: BaseDir : ${basedir}"/>
+	<property name="ant.reuse.loader" value="true"/>
+    <property environment="env"/>
+    
+	<property name="CommonLibs.location" value="../CommonLibs"/>
+	<property name="GenieCom.location" value="../GenieCom"/>
+	<property name="Utils.location" value="../Utils"/>
+	<property name="GenieCommon.location" value="../GenieCommon"/>
+	<property name="Executor.location" value="../Executor"/>
+	<property name="GenieUIRobot.location" value="../GenieUIRobot"/>
+	
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+    
+	<property name="GenieComBuild.location" location="${GenieCom.location}/GenieCom_Build.xml"/>
+	<import file="${GenieComBuild.location}"/>
+
+	<property name="GenieCommonBuild.location" location="${GenieCommon.location}/GenieCommon_Build.xml"/>
+		<import file="${GenieCommonBuild.location}"/>
+	
+	<property name="GenieUIRobotBuild.location" location="${GenieUIRobot.location}/GenieUIRobot_Build.xml"/>
+	<import file="${GenieUIRobotBuild.location}"/>
+	
+	<!-- Set the Classpath-->
+	<path id="ScriptInterface.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="${GenieCom.location}/GenieCom.jar"/>
+		<pathelement location="${GenieCommon.location}/GenieCommon.jar"/>
+		<pathelement location="${Utils.location}/Utils.jar"/>
+		<pathelement location="${GenieUIRobot.location}/GenieUIRobot.jar"/>
+		<pathelement location="${Executor.location}/bin"/>
+    </path>
+
+	<!-- Cleans the bin area and Create Dummy folder for holding ScriptInterface Compiled Classes -->
+	<target name="ScriptInterface.Clean">
+		<echo message="${ant.project.name}:Cleaning the bin area and Creating Dummy folder for holding ScriptInterface Compiled Classes"/>
+		<delete includeemptydirs="true" failonerror="false" quiet="true">
+		    <fileset dir="${basedir}\bin" includes="**/*"/>
+		</delete>
+		<mkdir dir="${basedir}\bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+	</target>
+	
+	<!-- Builds the GenieCom.jar as it is required for Current Project-->
+	<target name="ScriptInterface.GenieComBuild">
+        <echo message="${ant.project.name}:Building Dependent GenieCom Classes Jar"/>
+		<antcall target="GenieCom.GenieCom.CreateJar">
+			<param name="basedir" value="${GenieCom.location}" />
+		</antcall>
+	</target>
+
+	<!-- Builds the GenieCommon.jar as it is required for Current Project-->
+		<target name="ScriptInterface.GenieCommonBuild">
+	        <echo message="${ant.project.name}:Building Dependent GenieCommon Classes Jar"/>
+			<antcall target="GenieCommon.GenieCommon.CreateJar">
+				<param name="basedir" value="${GenieCommon.location}" />
+			</antcall>
+		</target>
+	
+	<!-- Builds the GenieUIRobot.jar as it is required for Current Project-->
+	<target name="ScriptInterface.GenieUIRobotBuild">
+        <echo message="${ant.project.name}:Building Dependent GenieUIRobot Classes Jar"/>
+		<antcall target="GenieUIRobot.GenieUIRobot.CreateJar">
+			<param name="basedir" value="${GenieUIRobot.location}" />
+		</antcall>
+	</target>	
+	
+	<!-- Build Classes for ScriptInterface.jar -->	
+	<target name="ScriptInterface.Compile" depends="ScriptInterface.Clean,ScriptInterface.GenieComBuild, ScriptInterface.GenieCommonBuild, ScriptInterface.GenieUIRobotBuild "  description="">
+		<echo message="${ant.project.name}:Build Classes for ScriptInterface.jar"/>
+		<javac destdir="bin" source="${source}" target="${target}" 
+			includes="com/adobe/genie/iexecutor/**/**"
+			listfiles="false">
+			<src path="${Executor.location}/src"/>
+            <src path="src"/>
+            <classpath refid="ScriptInterface.classpath"/>
+        </javac>
+    </target>
+	
+	<!-- Bundle the Jar file and do not include JUnit.jar -->	
+	<target name="ScriptInterface.CreateJar" depends="ScriptInterface.Compile">
+		<echo message="${ant.project.name}:Build ScriptInterface.jar without bundeling Junit"/>
+		<jar destfile="ScriptInterface.jar">
+	        <manifest>
+	            <attribute name="Class-Path" value="."/>
+	        	<attribute name="Implementation-Title" value="Genie (Code Name)"/>
+	        	<attribute name="Implementation-Vendor" value="Adobe Systems Inc"/>
+	        </manifest>
+			<fileset dir="bin"/>
+        </jar>
+	</target>
+</project>

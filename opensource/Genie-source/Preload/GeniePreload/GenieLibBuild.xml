@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="Preload" default="Preload.BuildPreload">
+	<echo message="${ant.project.name}: ${ant.file}"/>
+    <property environment="env"/>
+
+	<!-- Set Properties -->
+	<!-- Create an Environment Variable for root of Flex SDK 4.5.1 or hardcode FLEX_HOME here-->
+	<property name="FLEX_HOME" value="${env.FLEX_HOME_4_5_1}" />
+	<property name="player.version" value="10.2"/>
+	<property name="output_folder" value="WEB" />
+	
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+	<property name="locale" value="en_US" />
+	<property name="compc.jvm.args" value="-Dassert -ea -DAS3 -DAVMPLUS -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" />
+	
+	<property name="ROOT" value=".." />
+	
+	<!-- Clean the out folder -->
+	<target name="Preload.Clean">
+		<echo message="${ant.project.name}:Cleaning the bin area for all projects and Creating Dummy folder for holding Compiled classes"/>
+		<delete includeemptydirs="false" failonerror="true" quiet="true">
+			<fileset dir="${ROOT}/automation_flash/bin" includes="**/*"/>
+			<fileset dir="${ROOT}/GeniePreload/bin/${output_folder}" includes="**/*"/>
+		</delete>
+		<mkdir dir="${ROOT}/automation_flash/bin"/>
+		<mkdir dir="${ROOT}/GeniePreload/bin/${output_folder}"/>
+	</target>
+	
+	<!-- Compile the automation library for Flash-->
+	<target name="Preload.BuildFlashAutomation" depends="Preload.Clean">
+		<echo message="${ant.project.name}:Creating automation library for Flash"/>
+		<exec executable="${FLEX_HOME}/bin/compc.exe" failonerror="true">
+			<arg line="-load-config '${FLEX_HOME}/frameworks/flex-config.xml'"/>
+
+			<!-- Source paths to be referenced -->
+			<arg line="-compiler.source-path
+				'${ROOT}/automation_flash/src'
+			"/>
+			
+			<!-- libraries that needed to be compied in the generated SWF -->
+			<arg line="-compiler.include-libraries 
+				'${ROOT}/GeniePreload/Libs/agent.swc'
+				'${ROOT}/GeniePreload/Libs/FlashLib.swc'
+				"/>
+		
+			<!-- Classes to be included in SWC -->
+			<arg line="-include-classes 'AutomationClasses'"/>
+			
+			<!-- Misc Compiler arguments -->
+			<arg line="-compiler.strict"/>
+			<arg line="-compiler.as3"/>
+			<arg line="-target-player '${player.version}'"/>
+
+			<!-- Output file -->
+			<arg line="-output '${ROOT}/automation_flash/bin/automation_flash.swc'"/>
+		</exec>
+	</target>
+
+	
+
+	<!-- Compile Preload for Flex-->
+	<target name="Preload.BuildPreload" depends="Preload.Clean,Preload.BuildFlashAutomation">
+		<echo message="${ant.project.name}:Finally Compiling the Preload SWF"/>
+		<exec executable="${FLEX_HOME}/bin/mxmlc.exe" failonerror="true">
+			<arg line="${ROOT}/GeniePreload/src/GeniePreload.as"/>
+			<arg line="-load-config '${FLEX_HOME}/frameworks/flex-config.xml'"/>
+			
+			<!-- libraries that needed to be compied in the generated SWF -->
+			<arg line="-compiler.include-libraries 
+				'${ROOT}/automation_flash/bin/automation_flash.swc' 
+				'${ROOT}/GeniePreload/Libs/agent.swc'
+				'${FLEX_HOME}/frameworks/libs/flash-integration.swc'
+				'${FLEX_HOME}/frameworks/libs/core.swc'
+			"/>
+
+			<!-- Source paths to be referenced -->
+			<arg line="-compiler.source-path
+				'${ROOT}/GeniePreload/src'
+				'${ROOT}/automation_flash/src'
+				'${FLEX_HOME}/frameworks/projects/framework/bundles/${locale}'
+				'${FLEX_HOME}/frameworks/projects/mx/bundles/${locale}'
+			"/>
+			
+			<!-- Misc Compiler arguments -->
+			<arg line="-static-link-runtime-shared-libraries"/>
+			<arg line="-compiler.strict"/>
+			<arg line="-compiler.as3"/>
+			<arg line="-target-player '${player.version}'"/>			
+			<arg line="-compiler.accessible"/>
+			
+			<!-- Output file -->
+			<arg line="-output '${ROOT}/GeniePreload/bin/${output_folder}/GenieLibrary.swf'"/>
+		</exec>
+	</target>
+</project>
+

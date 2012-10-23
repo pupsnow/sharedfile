@@ -1,0 +1,303 @@
+<!--
+//========================================================================================
+//Copyright © 2012, Adobe Systems Incorporated
+//All rights reserved.
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+//•	Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+//•	Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the 
+//	documentation and/or other materials provided with the distribution.
+//
+//	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+//  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE 
+//  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT 
+//  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//========================================================================================
+-->
+
+<XML>
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieComponent" javaClassName="com.adobe.genie.executor.components.GenieComponent">
+		<PreloadClassName name="mx.controls::Any"></PreloadClassName>
+		<PreloadClassName name="mx.core::UITextField"></PreloadClassName>
+		<Method preloadName="Click" javaName="click">
+		</Method>
+	</Component>
+	
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieButton" javaClassName="com.adobe.genie.executor.components.GenieButton" javaParentClass="com.adobe.genie.executor.components.GenieComponent">
+		<PreloadClassName name="fl.controls::Button"></PreloadClassName>
+		<PreloadClassName name="fl.controls::BaseButton"></PreloadClassName>
+		<PreloadClassName name="flash.display::SimpleButton"></PreloadClassName>
+		<Method preloadName="Type" javaName="type">
+			<Param preloadName="Data/Arguments/Argument" javaName="input" type="String"></Param>
+		</Method>
+	</Component>
+
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieContainer" javaClassName="com.adobe.genie.executor.components.GenieContainer" javaParentClass="com.adobe.genie.executor.components.GenieComponent">
+		<PreloadClassName name="mx.core::Container"></PreloadClassName>
+		<PreloadClassName name="mx.containers::Canvas"></PreloadClassName>
+		<PreloadClassName name="mx.containers::Tile"></PreloadClassName>
+		<PreloadClassName name="mx.containers::VBox"></PreloadClassName>
+		<PreloadClassName name="mx.containers::HBox"></PreloadClassName>
+		<PreloadClassName name="mx.containers::Box"></PreloadClassName>
+		<PreloadClassName name="mx.controls::HTML"></PreloadClassName>
+		<PreloadClassName name="spark.components::VGroup"></PreloadClassName>
+		<PreloadClassName name="spark.components::HGroup"></PreloadClassName>
+		<PreloadClassName name="mx.core::Application"></PreloadClassName>
+		<PreloadClassName name="mx.containers::Panel"></PreloadClassName>
+		<PreloadClassName name="spark.components::Panel"></PreloadClassName>		
+		<Method preloadName="Scroll" javaName="scroll">
+			<Param preloadName="Data/Arguments/Argument" javaName="dataItem" type="int"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="dataItem" type="int"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="dataItem" type="int"></Param>
+		</Method>
+		<Method preloadName="MouseScroll" javaName="mouseScroll">
+			<Param preloadName="Data/Arguments/Argument" javaName="scrollPosition" type="int"></Param>
+		</Method>
+		
+	</Component>
+
+
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieDividedBox" javaClassName="com.adobe.genie.executor.components.GenieDividedBox" javaParentClass="com.adobe.genie.executor.components.GenieComponent">
+		<PreloadClassName name="mx.containers::DividedBox"></PreloadClassName>
+		<PreloadClassName name="mx.containers::HDividedBox"></PreloadClassName>
+		<PreloadClassName name="mx.containers::VDividedBox"></PreloadClassName>
+		<Method preloadName="Released" javaName="released">
+			<Param preloadName="Data/Arguments/Argument" javaName="startPosition" type="int"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="endPosition" type="double"></Param>
+		</Method>
+	</Component>
+		
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieAccordion" javaClassName="com.adobe.genie.executor.components.GenieAccordion" javaParentClass="com.adobe.genie.executor.components.GenieComponent">
+		<PreloadClassName name="mx.containers::Accordion"></PreloadClassName>
+		<Method preloadName="Change" javaName="change">
+			<Param preloadName="Data/Arguments/Argument" javaName="accordionPaneLabel" type="String"></Param>
+		</Method>
+		<Method preloadName="ChangeIndex" javaName="changeIndex">
+			<Param preloadName="Data/Arguments/Argument" javaName="accordionPaneIndex" type="int"></Param>
+		</Method>
+		<Method preloadName="Type" javaName="type">
+			<Param preloadName="Data/Arguments/Argument" javaName="pressedKey" type="String"></Param>
+		</Method>
+	</Component>
+
+
+	<Component preloadName="mx.controls::TextInput" javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieTextInput" javaClassName="com.adobe.genie.executor.components.GenieTextInput" javaParentClass="com.adobe.genie.executor.components.GenieComponent">
+		<PreloadClassName name="mx.controls::TextInput"></PreloadClassName>
+		<PreloadClassName name="fl.controls::TextInput"></PreloadClassName>
+		<PreloadClassName name="flash.text::TextField"></PreloadClassName>
+		<PreloadClassName name="fl.controls::TextArea"></PreloadClassName>
+		<PreloadClassName name="mx.controls::TextArea"></PreloadClassName>
+		<PreloadClassName name="spark.components::TextArea"></PreloadClassName>
+		<Method preloadName="DoubleClick" javaName="doubleClick"/>
+		<Method preloadName="SelectText" javaName="selectText">
+			<Param preloadName="Data/Arguments/Argument" javaName="startIndex" type="int"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="endIndex" type="int"></Param>
+		</Method>
+		<Method preloadName="Input" javaName="input">
+			<Param preloadName="Data/Arguments/Argument" javaName="input" type="String"></Param>
+		</Method>
+		<Method preloadName="Input" javaName="input">
+			<Param preloadName="Data/Arguments/Argument" javaName="input" type="String"></Param>
+			<Param preloadName="Data/PreloadParams/PreloadParam" javaName="visible" type="String"></Param>
+		</Method>
+		<Method preloadName="Type" javaName="type">
+			<Param preloadName="Data/Arguments/Argument" javaName="input" type="String"></Param>
+			<Param preloadName="Data/PreloadParams/PreloadParam" javaName="visible" type="String"></Param>
+		</Method>
+		<Method preloadName="Type" javaName="type">
+			<Param preloadName="Data/Arguments/Argument" javaName="input" type="String"></Param>
+		</Method>
+		<Method preloadName="Scroll" javaName="scroll">
+			<Param preloadName="Data/Arguments/Argument" javaName="scrollPosition" type="int"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="scrollDetail" type="int"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="scrollDirection" type="int"></Param>
+		</Method>
+		<Method preloadName="MouseScroll" javaName="mouseScroll">
+			<Param preloadName="Data/Arguments/Argument" javaName="scrollPosition" type="int"></Param>
+		</Method>
+	</Component>
+
+	<Component preloadName="mx.controls::ComboBox" javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieComboBox" javaClassName="com.adobe.genie.executor.components.GenieComboBox" javaParentClass="com.adobe.genie.executor.components.GenieComponent">
+		<PreloadClassName name="fl.controls::ComboBox"></PreloadClassName>
+		<Method preloadName="Open" javaName="open">
+		</Method>
+		<Method preloadName="Select" javaName="select">
+			<Param preloadName="Data/Arguments/Argument" javaName="dataItem" type="String"></Param>
+		</Method>
+		<Method preloadName="Type" javaName="type">
+			<Param preloadName="Data/Arguments/Argument" javaName="keyCode" type="String"></Param>
+		</Method>
+	</Component>
+
+
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieRadioButton" javaClassName="com.adobe.genie.executor.components.GenieRadioButton" javaParentClass="com.adobe.genie.executor.components.GenieButton">
+		<PreloadClassName name="fl.controls::RadioButton"></PreloadClassName>
+	</Component>
+
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieCheckBox" javaClassName="com.adobe.genie.executor.components.GenieCheckBox" javaParentClass="com.adobe.genie.executor.components.GenieButton">
+		<PreloadClassName name="fl.controls::CheckBox"></PreloadClassName>
+	</Component>
+
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieTabNavigator" javaClassName="com.adobe.genie.executor.components.GenieTabNavigator" javaParentClass="com.adobe.genie.executor.components.GenieComponent">
+		<PreloadClassName name="mx.containers::TabNavigator"></PreloadClassName>
+		<PreloadClassName name="mx.controls::TabBar"></PreloadClassName>
+		<Method preloadName="Change" javaName="change">
+			<Param preloadName="Data/Arguments/Argument" javaName="dataItem" type="String"></Param>
+		</Method>
+	</Component>
+
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.uiEvents.IUIGenieID" javaClassName="com.adobe.genie.executor.uiEvents.UIGenieID" javaParentClass="com.adobe.genie.executor.components.GenieComponent">
+		<PreloadClassName name="ui.controls.Generic"></PreloadClassName>
+		<Method preloadName="Click" javaName="click">
+			<Param preloadName="Data/Arguments/Argument" javaName="genieID" type="String"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="x" type="int"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="y" type="int"></Param>
+		</Method>
+		<Method preloadName="DoubleClick" javaName="doubleClick">
+			<Param preloadName="Data/Arguments/Argument" javaName="genieID" type="String"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="x" type="int"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="y" type="int"></Param>
+		</Method>
+	</Component>
+
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieNumericStepper" javaClassName="com.adobe.genie.executor.components.GenieNumericStepper" javaParentClass="com.adobe.genie.executor.components.GenieComponent">
+		<PreloadClassName name="fl.controls::NumericStepper"></PreloadClassName>
+		<Method preloadName="Change" javaName="change">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="double"></Param>
+		</Method>
+		<Method preloadName="Type" javaName="type">
+			<Param preloadName="Data/Arguments/Argument" javaName="input" type="String"></Param>
+		</Method>
+		<Method preloadName="SelectText" javaName="selectText">
+			<Param preloadName="Data/Arguments/Argument" javaName="startIndex" type="int"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="endIndex" type="int"></Param>
+		</Method>
+		<Method preloadName="Input" javaName="input">
+			<Param preloadName="Data/Arguments/Argument" javaName="input" type="String"></Param>
+		</Method>
+	</Component>	
+	
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieDisplayObject" javaClassName="com.adobe.genie.executor.components.GenieDisplayObject" javaParentClass="com.adobe.genie.executor.components.GenieComponent">
+		<PreloadClassName name="com.adobe.genie::DisplayObject"></PreloadClassName>
+		<Method preloadName="Click" javaName="click">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+		</Method>
+		
+		<Method preloadName="Click" javaName="click">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="boolean"></Param>
+		</Method>
+		
+		<Method preloadName="DoubleClick" javaName="doubleClick">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+		</Method>
+		
+		<Method preloadName="performKeyAction" javaName="performKeyAction">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="String"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="int"></Param>
+		</Method>
+		
+		<Method preloadName="performKeyAction" javaName="performKeyAction">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="String"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="int"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="int"></Param>
+		</Method>
+	</Component>
+	
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieSprite" javaClassName="com.adobe.genie.executor.components.GenieSprite" javaParentClass="com.adobe.genie.executor.components.GenieDisplayObject">
+		<PreloadClassName name="flash.display::Sprite"></PreloadClassName>
+		<Method preloadName="Click" javaName="click">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+		</Method>
+		
+		<Method preloadName="Click" javaName="click">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="boolean"></Param>
+		</Method>
+		
+		<Method preloadName="DoubleClick" javaName="doubleClick">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+		</Method>
+	</Component>
+	
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieShape" javaClassName="com.adobe.genie.executor.components.GenieShape" javaParentClass="com.adobe.genie.executor.components.GenieDisplayObject">
+		<PreloadClassName name="flash.display::Shape"></PreloadClassName>
+		<Method preloadName="Click" javaName="click">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+		</Method>
+		
+		<Method preloadName="Click" javaName="click">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="boolean"></Param>
+		</Method>
+		
+		<Method preloadName="DoubleClick" javaName="doubleClick">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+		</Method>
+	</Component>
+	<Component javaInterfaceName="com.adobe.genie.iexecutor.components.IGenieMovieClip" javaClassName="com.adobe.genie.executor.components.GenieMovieClip" javaParentClass="com.adobe.genie.executor.components.GenieDisplayObject">
+		<PreloadClassName name="flash.display::MovieClip"></PreloadClassName>
+		<Method preloadName="Click" javaName="click"/>
+		<Method preloadName="Click" javaName="click">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+		</Method>
+		
+		<Method preloadName="Click" javaName="click">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="boolean"></Param>
+		</Method>
+		
+		<Method preloadName="DoubleClick" javaName="doubleClick">
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+			<Param preloadName="Data/Arguments/Argument" javaName="value" type="Number"></Param>
+		</Method>
+		<Method preloadName="Type" javaName="type">
+			<Param preloadName="Data/Arguments/Argument" javaName="input" type="String"></Param>
+		</Method>
+		
+	</Component>
+</XML>
