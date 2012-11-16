@@ -1,0 +1,151 @@
+
+1
+Discuz!代码,论坛代码,论坛个性签名代码全集
+
+收集一：
+
+01.加图片：[img]图片地址[/img]例如：[img]http://file13.joyes.com/123.gif[/img]
+
+02.文字：[SIZE=4]你想加的文字[/SIZE](size=.这个是文字大小,可以自己修改)
+
+03.加超链接：[URL=链接地址]链接显示的文字[/URL]
+
+04.加图片链接：[URL=链接地址][img]图片地址[/img][/URL]
+
+05.加飞行：[fly]文字[/fly]在标签的中间插入文字可以实现文字飞翔效果，类似跑马灯
+
+06.加闪烁字：[SIZE=4][light]文字[/light][/SIZE]
+
+07.加文字颜色：[COLOR=red]文字[/color]颜色可以自定义例如colorbluegreen等
+
+08.加文字特效：[shadow=255,red,2]文字[/shadow]：在标签的中间插入文字可以实现文字阴影特效，shadow内属性依次为宽度、颜色和边界大小
+
+
+收集二：
+
+01.贴图：<imgsrc="图片地址">
+
+02.加入连接：<BIG><fontcolor="#9E2A39"><ahref="相关地址/">文本内容</a></font></BIG>
+
+03.在新窗口打开连接：<ahref="相关地址"target="_blank">写上要写的字</a>
+
+04.移动字体(走马灯)：<marquee>写上你想写的字</marquee>
+
+05.体加粗：<b>写上你想写的字</b>
+
+06.字体斜体：<I>写上你想写的字</I>
+
+07.字体下划线:<U>写上你想写的字</U>
+
+08.字体删除线:<s>写上你想写的字</s>
+
+09.字体加大:<BIG>写上你想写的字</BIG>
+
+10.字体控制大小：<H1>写上你想写的字</H1>(其中字体大小可从H1-H5，H1最大，H5最小)
+
+11.更改字体颜色：<fontcolor="#value">写上你想写的字</font>(其中value值在000000与FFFFFF(16位进制)之间
+
+12.消除连接的下划线：<ahref="相关地址"tyle="text-decoration:none">写上你想写的字</a>
+
+13.贴flash:<embedsrc="flash地址"width="宽度"height="高度">
+
+
+收集三：
+
+01.[b]粗体文字Abc[/b]效果:粗体文字Abc（粗体字）
+
+02.[i]斜体文字Abc[/i]效果:斜体文字Abc（斜体字）
+
+03.[u]下划线文字Abc[/u]效果:下划线文字Abc（下划线）
+
+04.[color=red]红颜色[/color]效果:红颜色（改变文字颜色）
+
+05.[size=3]文字大小为3[/size]效果:文字大小为3（改变文字大小）
+
+06.[font=仿宋]字体为仿宋[/font]效果:字体为仿宋（改变字体）
+
+07.[align=Center]内容居中[/align]（格式内容位置）效果:内容居中
+
+08.[url]http://www.comsenz.com[/url]效果:http://www.comsenz.com（超级连接）
+
+09.[url=http://www.Discuz.net]Discuz!论坛[/url]效果:Discuz!论坛（超级连接）
+
+10.[email]myname@mydomain.com[/email]效果:myname@mydomain.com（E-Mail链接）
+
+11.[email=support@discuz.net]Discuz!技术支持[/email]效果:Discuz!技术支持（E-Mail链接）
+
+12.[quote]Discuz!Board是由北京康盛世纪科技有限公司开发的论坛软件[/quote]（引用内容，类似的代码还有
+
+暗洋红color=darkmagenta（#8B008B） 暗红色color=darkred（#8B0000） 
+褐玫瑰红color=rosybrown（#BC8F8F） 印地安红color=indianred（#CD5C5C） 
+深红色color=crimson（#DC143C） 红色color=red（#FF0000） 
+艳粉色color=hotpink（#FF69B4） 深粉红color=deeppink（#FF1493） 
+丁香红color=lilacred（#FF33CC） 橙红色color=orangered（#FF4500） 
+番茄色color=tomato（#FF6347） 鲜肉色color=salmon（#FA8072） 
+珊瑚色color=coral（#FF7F50） 浅珊瑚色color=lightcoral（#F08080） 
+浅肉色color=lightsalmon（#FFA07A） 浅粉色color=lightpink（#FFB6C1） 
+粉红色color=pink（#FFC0CB） 浅玫瑰色color=mistyrose（#FFE4E1） 
+  
+重褐色color=saddlebrown（#8B4513） 栗色color=maroon（#800000） 
+土黄色color=sienna（#A0522D） 赭色color=sienna（#A0522D） 
+火砖色color=firebrick（#B22222） 褐色color=brown（#A52A2A） 
+巧克力色color=chocolate（#D2691E） 秘鲁色color=peru（#CD853F） 
+暗金黄色color=darkgoldenrod（#B8860B） 实木色color=burlywood（#DEB887） 
+苍麒麟色color=palegoldenrod（#EEE8AA） 茶色color=tan（#D2B48C） 
+金麒麟色color=goldenrod（#DAA520） 沙褐色color=sandybrown（#F4A460） 
+暗桔色color=darkorange（#FF8C00） 橙色color=orange（#FFA500） 
+金黄色color=gold（#FFD700） 黄色color=yellow（#FFFF00） 
+暗卡其色color=darkkhaki（#BDB76B） 卡其色color=khaki（#F0E68C） 
+纳瓦白color=navajowhite（#FFDEAD） 桔黄色color=bisque（#FFE4C4） 
+鹿皮色color=moccasin（#FFE4B5） 桃色color=peachpuff（#FFDAB9） 
+  
+墨绿色color=darkslategray（#2F4F4F）  暗绿色color=darkgreen（#006400） 
+暗橄榄绿color=darkolivegreen（#556B2F） 森林绿color=forestgreen（#228B22） 
+深绿褐色color=olivedrab（#6B8E23） 绿色color=green（#008000） 
+间海蓝color=mediumseagreen（#3CB371） 海绿色color=seagreen（#2E8B57） 
+浅海蓝color=lightseagreen（#20B2AA） 水鸭色color=teal（#008080） 
+间绿色color=mediumaquamarine（#66CDAA） 橄榄色color=olive（#808000） 
+暗海蓝color=darkseagreen（#8FBC8B） 黄绿色color=yellowgreen（#9ACD32） 
+橙绿色color=limegreen（#32CD32） 浅绿色color=lightgreen（#90EE90） 
+酸橙色color=lime（#00FF00） 黄绿色color=greenyellow（#ADFF2F） 
+黄绿色color=chartreuse（#7FFF00） 草绿色color=lawngreen（#7CFC00） 
+苍木色color=palegreen（#98FB98） 春绿色color=springgreen（#00FF7F） 
+间春绿color=mediumspringgreen（#00FA9A） 碧绿色color=aquamarine（#7FFFD4） 
+  
+藏青色color=navyblue（#4B4B4B） 藏青色color=navy（#000080） 
+间宝石绿color=mediumturquoise（#48D1CC） 暗青色color=darkcyan（#008B8B） 
+暗宝石绿color=darkturquoise（#00CED1） 青绿色color=turquoise（#40E0D0） 
+苍绿色color=paleturquoise（#AFEEEE） 青色color=cyan（#00FFFF） 
+  
+暗灰蓝color=darkslateblue（#483D8B） 暗蓝色color=darkblue（#00008B） 
+中灰蓝color=midnightblue（#191970） 靛蓝色color=indigo（#4B0082） 
+浅蓝灰color=lightslategray（#778899） 钢蓝色color=steelblue（#4682B4） 
+石蓝色color=slateblue（#6A5ACD） 军蓝色color=cadetblue（#5F9EA0） 
+间蓝色color=mediumblue（#0000CD） 宝蓝色color=royalblue（#4169E1） 
+间暗蓝color=mediumslateblue（#7B68EE） 蓝色color=blue（#0000FF） 
+菊蓝色color=cornflowerblue（#6495ED） 闪蓝色color=dodgerblue（#1E90FF） 
+深天蓝color=deepskyblue（#00BFFF） 天蓝色color=skyblue（#87CEEB） 
+浅天蓝color=lightskyblue（#87CEFA） 浅蓝色color=lightblue（#ADD8E6） 
+浅钢蓝color=lightsteelblue（#B0C4DE） 粉蓝色color=powderblue（#B0E0E6） 
+  
+间紫罗兰色color=mediumvioletred（#c71585） 紫色color=purple（#800080） 
+苍紫罗兰色color=palevioletred（#DB7093） 紫罗兰色color=blueviolet（#8A2BE2） 
+紫丁香色color=violet（#EE82EE） 暗紫色color=darkviolet（#9400D3） 
+紫红色color=Fuchsia（#FF00FF） 暗紫色color=darkorchid（#9932CC） 
+淡紫色color=orchid（#DA70D6） 间紫色color=mediumpurple（#9370DB） 
+杨李色color=plum（#DDA0DD） 间紫色color=mediumorchid（#BA55D3） 
+蓟色color=thistle（#D8BFD8） 淡紫色color=lavender（#E6E6FA） 
+  
+黑色color＝black（#000000） 暗灰色color=dimgray（#696969） 
+灰色color=gray（#808080） 灰石色color=slategray（#708090） 
+暗灰色color=darkgray（#A9A9A9） 银白色color=silver（#C0C0C0） 
+浅灰色color=lightgrey（#D3D3D3） 淡灰色color=gainsboro（#DCDCDC） 
+  
+白杏色color=blanchedalmond（#FFEBCD） 古董白=antiquewhite（#FAEBD7）  
+苍木色color=papayawhip（#FFEFD5）  亚麻色color=linen（#FAF0E6）  
+米色color=beige（#F5F5DC）  灰褐色color=beige（#F5F5DC） 
+老花色color=oldlace（#FDF5E6）  米绸色color=cornsilk（#FFF8DC）  
+浅金黄color=lightgoldenrodyellow（#FAFAD2） 浅黄色color=lightyellow（#FFFFE0）  
+柠檬绸色color=lemonchiffon（#FFFACD）  米色color=beige（#F5F5DC）  
+艾利斯兰color=aliceblue（#F0F8FF）  浅青色color=lightcyan（#E0FFFF）  
+天蓝色color=azure（#F0FFFF）  淡紫红color=lavenderblush（#FFF0F5）
