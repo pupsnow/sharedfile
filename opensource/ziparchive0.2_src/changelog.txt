@@ -1,0 +1,15 @@
+﻿************************************************************************
+* 
+* ZipArchive Library
+* Copyright (C) 2007 Flashlizi
+* MSN:flashlizi@hotmail.com (flashlizi@gmail.com, www.riaidea.com)
+* @version 0.2
+*
+************************************************************************
+
+2010-04-17 v0.2:
+1. 修正无法读取SWC文件的bug。
+2. 改写部分程序，使用方法更加清晰和容易。
+
+2008-12-22 v0.11:
+1. 修正ZipArchive.output()输出多层目录zip文件时出错的bug。
